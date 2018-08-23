@@ -1,8 +1,9 @@
 import {createStackNavigator} from 'react-navigation';
-import { LoginPage } from "./pages";
+import { LoginPage, HomePage } from "./pages";
+
 
 export default createStackNavigator({
-    'Login' : {
+    'LoginPage' : {
         screen: LoginPage,
         navigationOptions: {
             headerStyle: {
@@ -10,6 +11,9 @@ export default createStackNavigator({
             },
         }
     },
+    'HomePage' :{
+        screen: HomePage
+    }
 }, {
     navigationOptions: {
 
