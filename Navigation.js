@@ -11,7 +11,7 @@ export default createStackNavigator({
             },
         }
     },
-    'Cadastro': {
+    'NewUser': {
         screen: NewUserPage,
         navigationOptions: {
 
