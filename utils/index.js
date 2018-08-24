@@ -1,1 +1,1 @@
-export * from './messageErroCodeFirebase';
+// PASTA ONDE FICARÃO OS METODOS GENERICOS, COM UTILIDADES DE USO FREQUENTE

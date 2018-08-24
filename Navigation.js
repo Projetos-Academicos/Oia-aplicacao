@@ -1,20 +1,13 @@
 import {createStackNavigator} from 'react-navigation';
-import { LoginPage } from "./pages";
+import {NewUserPage} from './pages';
 
 export default createStackNavigator({
-    'Login' : {
-        screen: LoginPage,
-        navigationOptions: {
+    'Cadastro' : {
+        screen: NewUserPage,
+        navigationOptions: {            
             headerStyle: {
                  display: 'none', 
             },
         }
-    },
-}, {
-    navigationOptions: {
-
-    },
-    headerTitleStyle: {
-        
-    }
+     }
 });

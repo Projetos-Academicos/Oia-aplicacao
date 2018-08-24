@@ -1,1 +1,1 @@
-// PASTA ONDE FICARÃO OS COMPONENTES REUTILIZAVEIS (EX: INPUTS, BUTTONS)
+export {default as FormRow} from './FormRow';
