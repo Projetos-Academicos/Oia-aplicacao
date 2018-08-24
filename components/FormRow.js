@@ -14,7 +14,6 @@ const FormRow = props => {
     );
 }
 
-
 const styles = StyleSheet.create({
     container:{
         padding: 1,        
