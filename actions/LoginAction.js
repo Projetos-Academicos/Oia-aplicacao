@@ -11,14 +11,15 @@ const logoutUser = () => ({
     type: LOGOUT_USER,
 });
 
-export const login = ({email, password}) => dispatch => {
+export const login = ({ email, password }) => dispatch => {
     return firebase
     .auth()
     .signInWithEmailAndPassword(email, password)
-    .then(user => {
+    .then((user) => {       
+        
         const action = loginUserSucess(user);
         dispatch(action);
         return user;
-    })
-    .catch(erro => {return Promise.reject(erro);})
+    })   
+    .catch(erro => { return Promise.reject(erro) })
 }
