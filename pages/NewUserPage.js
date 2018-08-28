@@ -1,9 +1,10 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
 import { connect } from 'react-redux';
+import firebase from 'firebase';
 
 import { FormRow } from '../components';
-import { tryRegister } from "../actions";
+import { tryRegister, tryInsert } from "../actions";
 
 class NewUserPage extends React.Component {
     constructor(props) {
@@ -13,20 +14,31 @@ class NewUserPage extends React.Component {
             isLoading: false,
             msgError: "",
             email: "",
-            password: ""
+            password: "",
+            birthDate: "",
+            name: "",
+            lastName: ""
         }
-    } 
 
+    } 
+    
     changeTextInput(chave, valor){
         this.setState({
             [chave]: valor
         });      
     } 
-
+    
     register(){
-        const {email, password} = this.state;
-
+        const {email, password, name, lastName, birthDate} = this.state;
+        
         this.props.tryRegister({email, password});
+        
+        firebase.auth().signOut();
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                this.props.tryInsert({email, name, lastName, birthDate, user});
+            }
+        });
     }
 
     render() {
@@ -57,6 +69,51 @@ class NewUserPage extends React.Component {
                                 secureTextEntry
                                 value={this.state.password}
                                 onChangeText={value => { this.changeTextInput('password', value)}}
+                            />
+                        </FormRow>
+
+                        <FormRow>
+                            <Text style = {styles.label}>Confirme a senha</Text>
+                            <TextInput
+                                style={styles.input}
+                                placeholder="******"
+                                underlineColorAndroid='transparent'
+                                secureTextEntry
+                                value={this.state.password}
+                                onChangeText={value => { this.changeTextInput('password', value)}}
+                            />
+                        </FormRow>
+
+                        <FormRow>
+                            <Text style = {styles.label}>Nome</Text>
+                            <TextInput
+                                style={styles.input}
+                                placeholder="Digite seu nome"
+                                underlineColorAndroid='transparent'
+                                value={this.state.name}
+                                onChangeText={value => { this.changeTextInput('name', value)}}
+                            />
+                        </FormRow>
+
+                        <FormRow>
+                            <Text style = {styles.label}>Sobrenome</Text>
+                            <TextInput
+                                style={styles.input}
+                                placeholder="Digite seu sobrenome"
+                                underlineColorAndroid='transparent'
+                                value={this.state.lastName}
+                                onChangeText={value => { this.changeTextInput('lastName', value)}}
+                            />
+                        </FormRow>
+
+                        <FormRow>
+                            <Text style = {styles.label}>Data de Nascimento</Text>
+                            <TextInput
+                                style={styles.input}
+                                placeholder="DD/MM/AAAA"
+                                underlineColorAndroid='transparent'
+                                value={this.state.birthDate}
+                                onChangeText={value => { this.changeTextInput('birthDate', value)}}
                             />
                         </FormRow>
 
@@ -104,7 +161,7 @@ const styles = StyleSheet.create({
     },
     containerLoginlb: {
         flex: 1,
-        marginTop: 180,
+        //marginTop: 180,
         marginLeft: 15,
         marginRight: 15,
         alignSelf: "center",
@@ -119,4 +176,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default connect(null, {tryRegister})(NewUserPage);
+export default connect(null, {tryRegister, tryInsert})(NewUserPage);

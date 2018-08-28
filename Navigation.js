@@ -14,7 +14,7 @@ export default createStackNavigator({
     'NewUser': {
         screen: NewUserPage,
         navigationOptions: {
-
+    
         },
     },
     'HomePage': {
