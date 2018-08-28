@@ -9,12 +9,18 @@ export const tryRegister = ({email, password}) => dispatch => {
             });
 }
 
-export const tryInsert = ({email, name, lastName, birthDate, user}) => dispatch => {
-   
-    firebase.database().ref('user').child(user.uid).set({
-        name: name,
-        last_name: lastName,
-        birth_date: birthDate,
-        email: email
+export const tryInsert = ({email, name, lastName, birthDate}) => dispatch => {
+
+    firebase.auth().signOut();
+    firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+            firebase.database().ref('user').child(user.uid).set({
+                name: name,
+                last_name: lastName,
+                birth_date: birthDate,
+                email: email
+            });
+        }
     });
+   
 }
