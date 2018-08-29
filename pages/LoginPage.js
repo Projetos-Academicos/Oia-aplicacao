@@ -44,7 +44,7 @@ export class LoginPage extends React.Component {
                 }
             })
             .catch(erro => {
-                this.setState({ isLoading: false, message: messageErroCodeLogin(erro) })
+                this.setState({ isLoading: false, message: messageErroCodeLogin(erro.code) })
             })
     }
 
