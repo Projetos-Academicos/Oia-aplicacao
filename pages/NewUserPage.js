@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
 import { connect } from 'react-redux';
-import firebase from 'firebase';
 
 import { FormRow } from '../components';
 import { tryRegister, tryInsert } from "../actions";
@@ -32,13 +31,7 @@ class NewUserPage extends React.Component {
         const {email, password, name, lastName, birthDate} = this.state;
         
         this.props.tryRegister({email, password});
-        
-        firebase.auth().signOut();
-        firebase.auth().onAuthStateChanged((user) => {
-            if (user) {
-                this.props.tryInsert({email, name, lastName, birthDate, user});
-            }
-        });
+        this.props.tryInsert({email, name, lastName, birthDate})
     }
 
     render() {
