@@ -1,16 +1,28 @@
-export const messageErroCodeLogin = (erroCode) =>{
-    switch(erroCode){
-        case "auth/wrong-password" :
-            return "Senha Incorreta.";
+export const messageErroCodeLogin = (erroCode) => {
+    switch (erroCode) {
+        case "auth/wrong-password":
+            return "Senha Incorreta";
         case "auth/invalid-email":
-            return "Email Inválido.";
+            return "Email Inválido";
         case "auth/user-disabled":
-            return "Email Informado Desativado.";           
+            return "Email Informado Desativado";
         case "auth/user-not-found":
-            return "Usuário não encontrado.";
-            case "The password is invalid or the user does not have a password.":
-            return "Senha/Email incorreto";
+            return "Usuário não encontrado";
         default:
-            return console.log(erroCode);
-   }
+            return "Erro 404. Favor informar ao suporte";
+    }
+}
+export const messageErroCodeNewUser = (erroCode) => {
+    switch (erroCode) {
+        case "auth/email-already-in-use":
+            return "Email já cadastrado";
+        case "auth/invalid-email":
+            return "Email Inválido"
+        case "auth/operation-not-allowed":
+            return "Operação não permitida";
+        case "auth/weak-password":
+            return "Senha fraca, informe uma senha com no mínimo 6 caracteres";
+        default:
+            return "Erro 404. Favor informar ao suporte";
+    }
 }
