@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, Button, ScrollView, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, Alert, TextInput, Button, ScrollView, ActivityIndicator } from 'react-native';
 //import { connect } from 'react-redux';
 import firebase from 'firebase';
 import { messageErroCodeNewUser } from "../utils";
@@ -236,6 +236,7 @@ const styles = StyleSheet.create({
     lbLogin: {
         fontSize: 30,
         margin: 5,
+        color: '#fff'
     },
     label: {
         marginLeft: 5,
