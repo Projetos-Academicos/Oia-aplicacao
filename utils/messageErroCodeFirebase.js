@@ -14,6 +14,14 @@ export const messageErroCodeLogin = (erroCode) => {
 }
 export const messageErroCodeNewUser = (erroCode) => {
     switch (erroCode) {
+        case "auth/wrong-password":
+            return "Senha Incorreta";
+        case "auth/invalid-email":
+            return "Email Inválido";
+        case "auth/user-disabled":
+            return "Email Informado Desativado";
+        case "auth/user-not-found":
+            return "Usuário não encontrado";
         case "auth/email-already-in-use":
             return "Email já cadastrado";
         case "auth/invalid-email":
