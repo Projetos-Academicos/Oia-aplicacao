@@ -6,6 +6,7 @@ npm install --save redux-thunk;
 npm install --save firebase;
 npm install --save react-navigation;
 npm install --save-dev remote-redux-devtools;
+npm install --save react-native-vector-icons;
 
 ## VERSÃO INSTALADA ##
 
