@@ -4,7 +4,9 @@ import { StyleSheet, Text, View, Alert, ActivityIndicator, Button, TextInput, Li
 
 import { messageErroCodeLogin } from "../utils";
 import { login } from "../actions";
-import { FormRow } from "../components";
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import InputForm from '../components/InputForm';
+import CustomButtom from '../components/CustomButtom'
 
 
 export class LoginPage extends React.Component {
@@ -53,7 +55,7 @@ export class LoginPage extends React.Component {
             return <ActivityIndicator />;
         }
         return (
-            <Button title="Entrar" onPress={() => this.doLogin()} />
+            <CustomButtom style={styles.button} onPress={() => this.doLogin()} text='Entrar' />
         );
     }
     renderMessage() {
@@ -74,49 +76,48 @@ export class LoginPage extends React.Component {
     render() {
         const { email, password } = this.state;
         return (
-            <View>
-
-                <View style={styles.containerTitle}>
-                    <Text style={styles.lbTitle}>Login</Text>
+            <View style={styles.global}>
+                <View style={styles.colorbackLogo}>
+                    <Text style={styles.logo}>
+                        <Icon name='earth' color='#fff' size={120} />
+                    </Text>
                 </View>
                 <View style={styles.containerPage}>
                     <View style={styles.containerLogin}>
-                        <FormRow first>
-                            <TextInput
-                                style={styles.input}
-                                underlineColorAndroid='transparent'
-                                placeholder="exemplo@exemplo.com"
+                        <View style={styles.formContainer}>
+                            <Icon name='email-outline' size={27} color='#999999' />
+                            <InputForm 
+                                placeholder='Email'
                                 value={email}
-                                onChangeText={value => this.changeTextInput("email", value)}
-                            />
-                        </FormRow>
-                        <FormRow>
-                            <TextInput
-                                style={styles.input}
-                                underlineColorAndroid='transparent'
-                                placeholder="******"
+                                onChangeText={value => this.changeTextInput('email', value)} />
+                        </View>
+
+                        <View style={styles.formContainer}>
+                            <Icon name='lock-outline' size={27} color='#999999' />
+                            <InputForm 
+                                placeholder='Senha'
+                                secureTextEntry
                                 value={password}
-                                onChangeText={value => this.changeTextInput("password", value)}
-                                secureTextEntry={true}
-                            />
-                        </FormRow>
-                        <FormRow last>
-                            <View style={styles.containerButton}>
+                                onChangeText={value => this.changeTextInput('password', value)} />
+                        </View>
+
+                        <View style={styles.containerFooter}>
+                            <View style={styles.spaceButton}>
                                 {this.renderButton()}
                                 {this.renderMessage()}
                             </View>
-                        </FormRow>
+                            <Text>
+                                <Text>Não tem cadastro? </Text>
+                                <Text 
+                                    style={styles.signUp}
+                                    onPress={() => this.props.navigation.navigate('NewUser')}>
+                                    Cadastre-se
+                                </Text>
+                            </Text>
+                        </View>
                     </View>
                 </View>
-                <View style={styles.containerFooter}>
-                    <Text>
-                        <Text>Não tem cadastro? </Text>
-                        <Text 
-                            style={{ color: 'blue', textDecorationLine: 'underline', }}
-                            onPress={() => this.props.navigation.navigate("NewUser")}
-                            >Cadastre-se</Text>
-                    </Text>
-                </View>
+
             </View>
         );
     }
@@ -126,47 +127,58 @@ export class LoginPage extends React.Component {
  *  CSS
  */
 const styles = StyleSheet.create({
-    containerPage: {
-        flexDirection: 'row',
+   global: {
+       flex: 1,
+       backgroundColor: '#fff',
+   },
+   colorbackLogo: {
+       alignItems: 'center',
+       backgroundColor: "#6F2B8F",
+       paddingBottom: 40
+   },
+   logo: {
+       fontSize: 32,
+       fontWeight: 'bold',
+       marginTop: 45,
+       color: 'white'
     },
-    containerTitle: {
-        flex: 1,
-        marginTop: 150,
-        alignSelf: "center",
+    containerPage: {
+       flexDirection: 'row',
     },
     containerLogin: {
         flex: 1,
         marginLeft: 15,
         marginRight: 15,
-        borderWidth: 1,
-        borderColor: "gray",
         alignSelf: "center",
         marginTop: 50,
-        elevation: 1,
+        elevation: 1,    
     },
-    containerButton: {
-        marginLeft: 50,
-        marginRight: 50,
+    formContainer: {
+        flexDirection: 'row',
+        paddingBottom: 2,
+        marginBottom: 10,
+        borderWidth: 1,
+        borderRadius: 3,
+        borderColor: '#999999'
     },
     containerFooter: {
-        flex: 1,
-        marginTop: 50,
-        alignSelf: "center",
+        marginTop: 5,
+        alignItems: 'center'
     },
-    input: {
-        margin: 5,
-        fontSize: 20,
-        paddingLeft: 5,
-        paddingRight: 5,
-        paddingBottom: 5,
-        textAlign: "center",
-        backgroundColor: "#dcdcdc",
-        borderColor: "transparent",
-        borderWidth: 1,
+    button: {
+        backgroundColor: '#F5F5F5',
+        borderColor: '#F5F5F5',
+        borderWidth: 0.4,
+        elevation: 3,
+        width: 350
     },
-    lbTitle: {
-        fontSize: 35,
+    spaceButton: {
+        marginBottom: 20
     },
+    signUp: {
+        color: 'black',
+        fontWeight: 'bold',
+    }
 });
 
 export default connect(null, { login })(LoginPage);

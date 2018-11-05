@@ -16,6 +16,7 @@ const FormRow = props => {
 
 const styles = StyleSheet.create({
     container:{
+        flexDirection: 'row',
         padding: 1,        
         margin: 10,
         elevation: 1,

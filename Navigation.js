@@ -10,13 +10,13 @@ import {
     SafeAreaView,
     Dimensions,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { LoginPage, HomePage, NewUserPage, JobDetail, ExitScreen, CreateJob } from "./pages";
 
 
 const AppStackNavigator = createStackNavigator({
-    'LoginPage': {
-        screen: LoginPage,
+    'LoginPage': { 
+        screen: HomePage, //LoginPage
         navigationOptions: {
             headerStyle: {
                 display: 'none',
@@ -24,29 +24,31 @@ const AppStackNavigator = createStackNavigator({
         }
     },
     'HomePage': {
-        screen: HomePage, // HomePage
+        screen: LoginPage, // HomePage
         navigationOptions: ({ navigation }) => ({
             headerLeft: (
                 <TouchableOpacity onPress={() => navigation.openDrawer()}>
                     <View style={{ paddingHorizontal: 12 }}>
-                        <Icon color='#fff' name="md-menu" size={28} />
+                        <Icon color='#fff' name="menu" size={28} />
                     </View>
                 </TouchableOpacity>
             )
         })
     },
     'NewUser': {
-        screen: NewUserPage,
+        screen: NewUserPage, //NewUserPage
         navigationOptions: {
-
+           headerStyle: {
+               display: 'none',
+           }
         },
     },
     'JobDetail': {
         screen: JobDetail, // JobDetail
         navigationOptions: ({ navigation }) => {
-            const nameWork = navigation.state.params.listVagas.title;
+            // const nameWork = navigation.state.params.listVagas.title;
             return ({
-                title: nameWork, //namework
+                title: 'Detalhes da Oia', //namework
                 headerTitleStyle: {
                     color: '#fff',
                     fontSize: 24,
@@ -63,66 +65,77 @@ const AppStackNavigator = createStackNavigator({
             headerLeft: (
                 <TouchableOpacity onPress={() => navigation.openDrawer()}>
                     <View style={{ paddingHorizontal: 12 }}>
-                        <Icon color='#fff' name="md-menu" size={28} />
+                        <Icon color='#fff' name="home" size={28} />
                     </View>
                 </TouchableOpacity>
             ),
             headerTintColor: '#fff',
             headerStyle: {
-                backgroundColor: '#484848',
+                backgroundColor: '#E75A4D',
                 borderWidth: 1,
                 borderBottomColor: '#85868B',
             },
             headerTitleStyle: {
                 color: '#fff',
-                fontSize: 30,
+                fontSize: 28,
                 textAlign: 'center',
                 flexGrow: 1,
             }
         })
     });
 
-class MyNotificationsScreen extends React.Component {
+class CreateJobScreen extends React.Component {
     static navigationOptions = {
-        drawerLabel: 'Historico de Vagas',
-    };
+        drawerLabel: 'Criar Vagas', 
+        drawerIcon: ({ tintColor }) => (
+          <Icon color={tintColor} name='pencil' size={24} />
+        ),
+      };
 
     render() {
         return (
-            <View style={styles.meio}>
-                <Button
-                    onPress={() => this.props.navigation.goBack()}
-                    title="Go back home"
-                    style={styles.meio}
-                />
-            </View>
+            <CreateJob />
         );
     }
 }
 
+class HistoricoScreen extends React.Component {
+    static navigationOptions = {
+      drawerLabel: 'Historico de Vagas', 
+      drawerIcon: ({ tintColor }) => (
+        <Icon color={tintColor} name='history' size={24} />
+      ),
+    };
+  
+    render() {
+      return (
+        <View style={styles.meio}>
+        <Button
+          onPress={() => this.props.navigation.goBack()}
+          title="Go back home"
+          style={styles.meio}
+        />
+        </View>
+      );
+    }
+  }
+
 class Exit extends React.Component {
     static navigationOptions = {
         drawerLabel: 'Sair',
-    };
+        drawerIcon: ({ tintColor }) => (
+          <Icon color={tintColor} name='exit-to-app' size={24} />
+        )
+      };
 
     render() {
         return (
-            <View style={styles.meio}>
-                <Button
-                    onPress={() => this.props.navigation.goBack()}
-                    title="Go back home"
-                    style={styles.meio}
-                />
-            </View>
+            <LoginPage /> // *** NECESSITA RESOLVER O COMO DESLOGAR CORRETAMENTE ***
         );
     }
 }
 
 const styles = StyleSheet.create({
-    icon: {
-        width: 24,
-        height: 24,
-    },
     meio: {
         flex: 1,
         justifyContent: 'center',
@@ -133,7 +146,7 @@ const styles = StyleSheet.create({
 const CustomDrawerComponent = (props) => {
     return (
         <SafeAreaView style={{ flex: 1 }}>
-            <View style={{ height: 150, backgroundColor: '#5C5C5C', alignItems: 'center', justifyContent: 'center' }}>
+            <View style={{ height: 150, backgroundColor: '#fff', alignItems: 'center', justifyContent: 'center' }}>
                 <Image source={require('./images/user.png')} style={{ height: 120, width: 120, borderRadius: 60 }} />
             </View>
             <ScrollView>
@@ -146,9 +159,17 @@ const CustomDrawerComponent = (props) => {
 export default createDrawerNavigator({
     Home: {
         screen: AppStackNavigator,
+        navigationOptions: {
+            drawerIcon: ({ tintColor }) => (
+              <Icon color={tintColor} name='home' size={24} />
+            )
+          }
+    },
+    CriarVaga: {
+        screen: CreateJobScreen,
     },
     Historico: {
-        screen: MyNotificationsScreen,
+        screen: HistoricoScreen,
     },
     Exit: {
         screen: Exit,
@@ -157,11 +178,12 @@ export default createDrawerNavigator({
     {
         contentComponent: CustomDrawerComponent,
         drawerWidth: 220,
-        drawerBackgroundColor: "#5C5C5C",
+        drawerBackgroundColor: "#fff",
         contentOptions: {
-            activeBackgroundColor: "#484848",
+            activeBackgroundColor: "#E75A4D",
+            activeTintColor: '#fff',
             labelStyle: {
-                fontSize: 20,
+                fontSize: 16,
             },
             activeTintColor: '#fff',
         }
