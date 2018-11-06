@@ -16,7 +16,7 @@ import { LoginPage, HomePage, NewUserPage, JobDetail, ExitScreen, CreateJob } fr
 
 const AppStackNavigator = createStackNavigator({
     'LoginPage': { 
-        screen: HomePage, //LoginPage
+        screen: LoginPage, //LoginPage
         navigationOptions: {
             headerStyle: {
                 display: 'none',
@@ -24,7 +24,7 @@ const AppStackNavigator = createStackNavigator({
         }
     },
     'HomePage': {
-        screen: LoginPage, // HomePage
+        screen: HomePage, // HomePage
         navigationOptions: ({ navigation }) => ({
             headerLeft: (
                 <TouchableOpacity onPress={() => navigation.openDrawer()}>
@@ -71,7 +71,7 @@ const AppStackNavigator = createStackNavigator({
             ),
             headerTintColor: '#fff',
             headerStyle: {
-                backgroundColor: '#E75A4D',
+                backgroundColor: '#6F2B8F',
                 borderWidth: 1,
                 borderBottomColor: '#85868B',
             },
@@ -84,20 +84,35 @@ const AppStackNavigator = createStackNavigator({
         })
     });
 
-class CreateJobScreen extends React.Component {
-    static navigationOptions = {
-        drawerLabel: 'Criar Vagas', 
-        drawerIcon: ({ tintColor }) => (
-          <Icon color={tintColor} name='pencil' size={24} />
-        ),
-      };
 
-    render() {
-        return (
-            <CreateJob />
-        );
-    }
-}
+const createJob = createStackNavigator({
+    'CreateJob': {
+        screen: CreateJob, // CreateJob
+        navigationOptions: ({ navigation }) => ({
+            title: 'Criar Vaga',
+            headerLeft: (
+                <TouchableOpacity onPress={() => navigation.openDrawer()}>
+                    <View style={{ paddingHorizontal: 12 }}>
+                        <Icon color='#fff' name="home" size={28} />
+                    </View>
+                </TouchableOpacity>
+            ),
+            headerTintColor: '#fff',
+                headerStyle: {
+                    backgroundColor: '#6F2B8F',
+                    borderWidth: 1,
+                    borderBottomColor: '#85868B',
+                },
+                headerTitleStyle: {
+                    color: '#fff',
+                    fontSize: 28,
+                    textAlign: 'center',
+                    flexGrow: 1,
+                }
+        })
+    }  
+})
+
 
 class HistoricoScreen extends React.Component {
     static navigationOptions = {
@@ -165,8 +180,13 @@ export default createDrawerNavigator({
             )
           }
     },
-    CriarVaga: {
-        screen: CreateJobScreen,
+    'Criar Vaga': {
+        screen: createJob,
+        navigationOptions: {
+            drawerIcon: ({ tintColor}) => (
+                <Icon color={tintColor} name='pencil' size={24} />
+            )
+        }
     },
     Historico: {
         screen: HistoricoScreen,
@@ -180,7 +200,7 @@ export default createDrawerNavigator({
         drawerWidth: 220,
         drawerBackgroundColor: "#fff",
         contentOptions: {
-            activeBackgroundColor: "#E75A4D",
+            activeBackgroundColor: "#6F2B8F",
             activeTintColor: '#fff',
             labelStyle: {
                 fontSize: 16,

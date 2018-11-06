@@ -88,6 +88,7 @@ export class LoginPage extends React.Component {
                             <Icon name='email-outline' size={27} color='#999999' />
                             <InputForm 
                                 placeholder='Email'
+                                keyboardType='email-address'
                                 value={email}
                                 onChangeText={value => this.changeTextInput('email', value)} />
                         </View>

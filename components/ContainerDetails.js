@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 7,
     alignItems: "center",
-    backgroundColor: "#E4E4E4",
+    backgroundColor: "#fff",
   },
   square: {
     borderRadius: 5,
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     color: 'black'
   },
   description: {
-    backgroundColor: '#E4E4E4',
+    backgroundColor: '#fff',
     flexDirection: 'row',
     paddingTop: 10,
   },

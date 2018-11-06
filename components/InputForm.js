@@ -1,15 +1,19 @@
 import React from 'react'
 import { TextInput, StyleSheet } from 'react-native'
 
-const InputForm = ({ onChangeText, value, placeholder, secureTextEntry }) => (
+const InputForm = ({ onChangeText, value, placeholder, secureTextEntry, multiline, keyboardType, maxLength, numberOfLines }) => (
     <TextInput 
-    style={styles.Input}
-    autoCorrect={false}
-    secureTextEntry={secureTextEntry}
-    placeholder={placeholder}
-    underlineColorAndroid='transparent'
-    onChangeText={onChangeText}
-    value={value}/>
+        style={styles.Input}
+        multiline={multiline}
+        autoCorrect={false}
+        maxLength={maxLength}
+        keyboardType={keyboardType}
+        numberOfLines={numberOfLines}
+        secureTextEntry={secureTextEntry}
+        placeholder={placeholder}
+        underlineColorAndroid='transparent'
+        onChangeText={onChangeText}
+        value={value} />
     
 );
 
