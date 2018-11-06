@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { LoginPage, HomePage, NewUserPage, JobDetail, ExitScreen, CreateJob } from "./pages";
+import HistoricoScreen from './pages/HistoricoScreen';
 
 
 const AppStackNavigator = createStackNavigator({
@@ -113,27 +114,33 @@ const createJob = createStackNavigator({
     }  
 })
 
-
-class HistoricoScreen extends React.Component {
-    static navigationOptions = {
-      drawerLabel: 'Historico de Vagas', 
-      drawerIcon: ({ tintColor }) => (
-        <Icon color={tintColor} name='history' size={24} />
-      ),
-    };
-  
-    render() {
-      return (
-        <View style={styles.meio}>
-        <Button
-          onPress={() => this.props.navigation.goBack()}
-          title="Go back home"
-          style={styles.meio}
-        />
-        </View>
-      );
-    }
-  }
+const historicScreen = createStackNavigator({
+    'HistoricoScreen': {
+        screen: HistoricoScreen, // HistoricoScreen
+        navigationOptions: ({ navigation }) => ({
+            title: 'Historico de Vagas',
+            headerLeft: (
+                <TouchableOpacity onPress={() => navigation.openDrawer()}>
+                    <View style={{ paddingHorizontal: 12 }}>
+                        <Icon color='#fff' name="home" size={28} />
+                    </View>
+                </TouchableOpacity>
+            ),
+            headerTintColor: '#fff',
+                headerStyle: {
+                    backgroundColor: '#6F2B8F',
+                    borderWidth: 1,
+                    borderBottomColor: '#85868B',
+                },
+                headerTitleStyle: {
+                    color: '#fff',
+                    fontSize: 28,
+                    textAlign: 'center',
+                    flexGrow: 1,
+                }
+        })
+    }  
+})
 
 class Exit extends React.Component {
     static navigationOptions = {
@@ -188,8 +195,13 @@ export default createDrawerNavigator({
             )
         }
     },
-    Historico: {
-        screen: HistoricoScreen,
+    'Historico de Vagas': {
+        screen: historicScreen,
+        navigationOptions: {
+            drawerIcon: ({ tintColor }) => (
+                <Icon color={tintColor} name='history' size={24} />
+            )
+        }
     },
     Exit: {
         screen: Exit,
