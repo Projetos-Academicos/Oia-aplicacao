@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
-const JobList = props => {
+const Historicjob = props => {
     const {listVagas, navigateToContainer} = props;
     const {title, local, published, description, price } = listVagas;
     return (
@@ -29,7 +29,7 @@ const JobList = props => {
     );
 };
 
-export default JobList;
+export default Historicjob;
 
 const styles = StyleSheet.create({
     container: {
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
         // marginBottom: 5,
         height: 130, // 130
        // borderRadius: 5,
-        borderBottomWidth: 1,
+        borderBottomWidth: 3,
         borderBottomColor: '#DFDFDF'
        // elevation: 5
        // flexDirection: "row",

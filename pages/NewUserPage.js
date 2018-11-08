@@ -1,10 +1,24 @@
 import React from 'react';
-import { StyleSheet, Text, View, Alert, TextInput, Button, ScrollView, ActivityIndicator } from 'react-native';
+import { 
+    StyleSheet, 
+    Text, 
+    View,
+    KeyboardAvoidingView, 
+    Alert, 
+    TextInput, 
+    Button, 
+    ScrollView,
+    TouchableOpacity, 
+    ActivityIndicator } from 'react-native';
 //import { connect } from 'react-redux';
 import firebase from 'firebase';
 import { messageErroCodeNewUser } from "../utils";
 
 import { FormRow } from '../components';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import InputForm from '../components/InputForm';
+import CustomButtom from '../components/CustomButtom';
+
 //import { tryRegister, tryInsert } from "../actions";
 
 export default class NewUserPage extends React.Component {
@@ -100,152 +114,172 @@ export default class NewUserPage extends React.Component {
             return <ActivityIndicator />;
         }
         return (
-            <View style={styles.containerButton}>
-                <Button title="Cadastrar" onPress={() => {
-                    this.register()
-                }} />
-            </View>
+            <CustomButtom style={styles.button} onPress={() => this.register()} text='Cadastrar' />
         );
     }
 
     render() {
         return (
-            <View>
-                <View style={styles.containerLoginlb}>
-                    <Text style={styles.lbLogin}>Faça o seu cadastro</Text>
+     <KeyboardAvoidingView behavior='padding'>       
+        <ScrollView>
+            <View style={styles.global}>
+                <View style={styles.colorBackLogo}>
+                    <Text style={styles.logo}>CADASTRE-SE</Text>
                 </View>
                 <View style={styles.containerPage}>
-                    <View style={styles.containerLogin}>
-                        <ScrollView>
-                            <FormRow first>
-                                <Text style={styles.label}>Email</Text>
-                                <TextInput
-                                    style={styles.input}
-                                    placeholder="exemplo@exemplo.com"
-                                    underlineColorAndroid='transparent'
-                                    value={this.state.email}
-                                    onChangeText={value => { this.changeTextInput('email', value) }}
+                 <View style={styles.containerRegister}>
+                    
+                    <View style={styles.session}>
+                        <Text style={styles.labelSession}>Dados de login</Text>
 
-                                />
-                            </FormRow>
-                            <FormRow>
-                                <Text style={styles.label}>Senha</Text>
-                                <TextInput
-                                    style={styles.input}
-                                    placeholder="******"
-                                    underlineColorAndroid='transparent'
-                                    secureTextEntry
-                                    value={this.state.password}
-                                    onChangeText={value => { this.changeTextInput('password', value) }}
-                                />
-                            </FormRow>
+                        <View style={styles.formContainer}>
+                            <View style={styles.backIcon}>
+                                <Icon name='email' color='#fff' size={26}/>
+                            </View>
+                            <InputForm 
+                                placeholder='Email'
+                                value={this.state.email}
+                                onChangeText={value => { this.changeTextInput('email', value)} } />
+                        </View>
+                    
+                        <View style={styles.formContainer}>
+                            <View style={styles.backIcon}>
+                                <Icon name='lock-open' color='#fff' size={26} />
+                            </View>
+                            <InputForm 
+                                placeholder='Senha'
+                                secureTextEntry={true}
+                                value={this.state.password}
+                                onChangeText={value=> { this.changeTextInput('password', value)}} />
+                        </View>
 
-                            <FormRow>
-                                <Text style={styles.label}>Confirme a senha</Text>
-                                <TextInput
-                                    style={styles.input}
-                                    placeholder="******"
-                                    underlineColorAndroid='transparent'
-                                    secureTextEntry
-                                    value={this.state.passwordConfirm}
-                                    onChangeText={value => { this.changeTextInput('passwordConfirm', value) }}
-                                />
-                            </FormRow>
+                        <View style={styles.formContainer}>
+                            <View style={styles.backIcon}>
+                                <Icon name='lock' color='#fff' size={26} />  
+                            </View>
+                            <InputForm 
+                                placeholder='Confirme sua Senha'
+                                secureTextEntry={true}
+                                value={this.state.passwordConfirm}
+                                onChangeText={value=> { this.changeTextInput('passwordConfirm', value)}} />
+                        </View>
+                        </View>
 
-                            <FormRow>
-                                <Text style={styles.label}>Nome</Text>
-                                <TextInput
-                                    style={styles.input}
-                                    placeholder="Digite seu nome"
-                                    underlineColorAndroid='transparent'
-                                    value={this.state.name}
-                                    onChangeText={value => { this.changeTextInput('name', value) }}
-                                />
-                            </FormRow>
 
-                            <FormRow>
-                                <Text style={styles.label}>Sobrenome</Text>
-                                <TextInput
-                                    style={styles.input}
-                                    placeholder="Digite seu sobrenome"
-                                    underlineColorAndroid='transparent'
-                                    value={this.state.lastName}
-                                    onChangeText={value => { this.changeTextInput('lastName', value) }}
-                                />
-                            </FormRow>
+                         <View style={styles.session}>
+                             <Text style={styles.labelSession}>Dados Pessoais</Text>
+                         
+                   
+                        <View style={styles.formContainer}>
+                            <View style={styles.backIcon}>
+                                <Icon name='account' color='#fff' size={26} />
+                            </View>
+                            <InputForm 
+                                placeholder='Nome Completo'
+                                value={this.state.name}
+                                onChangeText={value => { this.changeTextInput('name', value)} } />
+                        </View>
+                   
+                        <View style={styles.formContainer}>
+                            <View style={styles.backIcon}>
+                                <Icon name='map-marker' color='#fff' size={26} />
+                            </View>
+                            <InputForm 
+                                placeholder='Cidade'
+                                value={this.state.lastName}
+                                onChangeText={value => { this.changeTextInput('lastName', value)} } />
+                        </View>
+                    
+                        <View style={styles.formContainer}>
+                            <View style={styles.backIcon}>
+                                <Icon name='deskphone' color='#fff' size={26} />
+                            </View>
+                            <InputForm 
+                                placeholder='Telefone'
+                                value={this.state.birthDate}
+                                onChangeText={value => { this.changeTextInput('birthDate', value)} } />
+                        </View>
+                        </View>
 
-                            <FormRow>
-                                <Text style={styles.label}>Data de Nascimento</Text>
-                                <TextInput
-                                    style={styles.input}
-                                    placeholder="DD/MM/AAAA"
-                                    underlineColorAndroid='transparent'
-                                    value={this.state.birthDate}
-                                    onChangeText={value => { this.changeTextInput('birthDate', value) }}
-                                />
-                            </FormRow>
-
-                            <FormRow last>
+                        <View style={styles.containerFooter}>
+                            <View style={styles.spaceButtom}>
                                 {this.renderButton()}
                                 {this.renderMessage()}
-                            </FormRow>
-                        </ScrollView>
+                            </View>
+                        </View>
                     </View>
                 </View>
             </View>
-        );
+        </ScrollView>
+    </KeyboardAvoidingView>
+      );
     }
 }
 
-
 const styles = StyleSheet.create({
-
+    global: {
+        flex: 1,
+        backgroundColor: '#fff',
+    },
+    colorBackLogo: {
+        alignItems: 'center',
+        backgroundColor: "#6F2B8F",
+        paddingBottom: 10
+    },
+    logo: {
+        fontSize: 30,
+        fontWeight: 'bold',
+        marginTop: 35,
+        color: 'white'
+    },
     containerPage: {
         flexDirection: 'row',
-        backgroundColor: '#C6C6C6'
     },
-    containerLogin: {
-        flex: 1,
-        marginLeft: 15,
-        marginRight: 15,
-        marginTop: 50,
+    containerRegister: {
+        marginLeft: 5,
+        marginRight: 5,
+        alignSelf: "center",
+        marginTop: 20,
         elevation: 1,
     },
-    input: {
-        margin: 5,
-        fontSize: 20,
-        paddingLeft: 5,
-        paddingRight: 5,
-        paddingBottom: 5,
-        backgroundColor: "#FFF",
-        textAlign: 'center',
-        borderColor: "transparent",
+    session: {
+        backgroundColor: '#fff',
+        elevation: 2,
+        borderRadius: 3,
         borderWidth: 1,
+        borderColor: '#999999',
+        paddingHorizontal: 10,
+        paddingTop: 25,
+        marginBottom: 18,
     },
-    containerButton: {
-        marginLeft: 50,
-        marginRight: 50,
-    },
-    containerLoginlb: {
-        flex: 1,
-        //marginTop: 180,
-        marginLeft: 15,
-        marginRight: 15,
-        alignSelf: "center",
-    },
-    lbLogin: {
-        fontSize: 30,
-        margin: 5,
-        color: '#fff'
-    },
-    label: {
+    labelSession: {
+        position: 'absolute',
+        fontSize: 11,
         marginLeft: 5,
-        fontSize: 15,
-        color: '#fff'
+        paddingBottom: 10,
+        color: '#727272'
     },
-    errorMessage: {
-        fontSize: 15,
-        alignSelf: 'center',
-        color: 'red'
+    formContainer: {
+        flexDirection: 'row',
+        marginBottom: 16, // distancia entre os inputs
+        borderWidth: 1,
+        borderRadius: 3,
+        borderColor: '#999999',
+    },
+    backIcon: {
+        backgroundColor: '#e1e1e1'
+    },
+    containerFooter: {
+        backgroundColor: '#fff'     
+    },
+    spaceButtom: {
+        marginBottom: 50,
+    },
+    button: {
+        backgroundColor: '#F5F5F5',
+        borderColor: '#F5F5F5',
+        borderWidth: 0.4,
+        elevation: 3,
+        width: 350
     }
 });
