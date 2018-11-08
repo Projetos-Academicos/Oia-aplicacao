@@ -1,15 +1,15 @@
 import React from 'react';
 import { FlatList, Text, StyleSheet} from 'react-native';
-import JobList from './JobList';
+import HistoricJob from './HistoricJob';
 
-const ContainerJob = props => {
+const FlatHistoric = props => {
    const { vagas, onPressContainer } = props;
    return ( // NAO SEI SE O CODIGO VOLTA
         <FlatList 
             style={styles.container}
             data={vagas}
             renderItem={({ item }) => (
-                <JobList 
+                <HistoricJob 
                  listVagas={item}
                  navigateToContainer={onPressContainer} />
             )}
@@ -17,7 +17,7 @@ const ContainerJob = props => {
     );
 }
 
-export default ContainerJob;
+export default FlatHistoric;
 
 const styles = StyleSheet.create({
     container: {
