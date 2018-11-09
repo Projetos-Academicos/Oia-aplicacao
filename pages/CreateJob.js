@@ -17,6 +17,7 @@ import { messageErroCodeNewUser } from "../utils";
 
 import { FormRow } from '../components';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import axios from 'axios';
 import InputForm from '../components/InputForm';
 import CustomButtom from '../components/CustomButtom';
 
@@ -29,44 +30,17 @@ export default class NewUserPage extends React.Component {
         this.state = {
             isLoading: false,
             msgError: "",
-            email: "",
-            password: "",
-            passwordConfirm: "",
-            birthDate: "",
-            name: "",
-            lastName: ""
+            titulo: "",
+            descricao: "",
+            valor: 0,
+            prazo: 0,
+            categoriaEscolhida: 1,
+            cidadeEscolhida: 1,
+            categorias: [],
+            cidades: []
         }
 
-    }
-
-    tryRegister({ email, password }) {
-        return firebase
-            .auth()
-            .createUserWithEmailAndPassword(email, password)
-            .catch((error) => {
-                this.setState({ message: messageErroCodeNewUser(error.code) })
-            });
-    }
-
-    tryInsert({ email, name, lastName, birthDate }) {
-
-        firebase.auth().signOut();
-
-        firebase.auth().onAuthStateChanged((user) => {
-            if (user) {
-                firebase.database().ref('user').child(user.uid).set({
-                    name: name,
-                    last_name: lastName,
-                    birth_date: birthDate,
-                    email: email
-                })
-                .catch((error) => {
-                    this.setState({ message: messageErroCodeNewUser(error.code) })
-                });
-                Alert.alert("Bem-Vindo " + user.name + "!", "Registro efetuado com sucesso!");
-                this.props.navigation.replace("HomePage");
-            }
-        })
+        this.renderLists();
     }
 
     changeTextInput(chave, valor) {
@@ -75,27 +49,37 @@ export default class NewUserPage extends React.Component {
         });
     }
 
-    register() {
-        const { email, password, name, lastName, birthDate } = this.state;
-
-        if (this.passwordConfirmed()) {
-            this.tryRegister({ email, password })
-                .then(
-                    this.tryInsert({ email, name, lastName, birthDate })
-                );
-        } else {
-            this.setState({ message: "Senhas não conferem" });
-        }
-    }
-
-    passwordConfirmed() {
-        const { password, passwordConfirm } = this.state;
-
-        if (password === passwordConfirm) {
-            return true;
-        } else {
-            return false;
-        }
+    createJob () {
+        const { titulo, descricao, valor, prazo, cidadeEscolhida, categoriaEscolhida } = this.state;
+        console.log(cidadeEscolhida);
+        console.log(categoriaEscolhida);
+        axios({
+            method: 'post',
+            url: 'https://oia-api.herokuapp.com/admin/cadastro-vaga/',
+            data: {
+                titulo: titulo,
+                descricao: descricao,
+                ativo: true,
+                orcamento: valor,
+                prazo: prazo,
+                categoria:{
+                    id: categoriaEscolhida
+                },
+                usuarioVaga:{
+                    id: 1 
+                },
+                cidade: {
+                    id: cidadeEscolhida
+                },
+                statusVaga: 'ABERTA'
+                }
+            })
+            .then(function (response) {
+                console.log(response.data);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     }
 
     renderMessage() {
@@ -110,12 +94,30 @@ export default class NewUserPage extends React.Component {
         );
     }
 
+    renderLists() {
+        axios.get('https://oia-api.herokuapp.com/admin/listar-profissao')
+            .then(response => {
+                const results = response.data;
+                this.setState({
+                    categorias: results,
+                });
+            });
+
+         axios.get('http://oia-api.herokuapp.com/admin/listar-cidades')
+            .then(response => {
+                const results = response.data;
+                this.setState({
+                   cidades: results
+                });
+            });
+    }
+
     renderButton() {
         if (this.state.isLoading) {
             return <ActivityIndicator />;
         }
         return (
-            <CustomButtom style={styles.button} onPress={() => this.register()} text='Cadastrar' />
+            <CustomButtom style={styles.button} onPress={() => this.createJob()} text='Cadastrar' />
         );
     }
 
@@ -136,8 +138,8 @@ export default class NewUserPage extends React.Component {
                             </View>
                             <InputForm 
                                 placeholder='Titulo'
-                                value={this.state.email}
-                                onChangeText={value => { this.changeTextInput('email', value)} } />
+                                value={this.state.titulo}
+                                onChangeText={value => { this.changeTextInput('titulo', value)} } />
                         </View>
                     
                         <View style={styles.formContainer}>
@@ -150,8 +152,8 @@ export default class NewUserPage extends React.Component {
                                 multiline={true}
                                 maxLength={300}
                                 numberOfLines={3}
-                                value={this.state.password}
-                                onChangeText={value=> { this.changeTextInput('password', value)}} />
+                                value={this.state.descricao}
+                                onChangeText={value=> { this.changeTextInput('descricao', value)}} />
                         </View>
                         </View>
 
@@ -188,12 +190,11 @@ export default class NewUserPage extends React.Component {
                         <View style={styles.backIcon}><Icon name='map-marker' size={26} color="#fff"/></View>
                         <View style={{marginRight: 10, borderWidth: 1, borderColor: '#999999'}}>
                         <Picker
-                            selectedValue={this.state.local}
+                            selectedValue={this.state.cidadeEscolhida}
                             style={{ height: 20, width: 130 }}
-                            onValueChange={(itemValue, itemIndex) => this.setState({local: itemValue})}>
-                            <Picker.Item label="Recife" value="recife" />
-                            <Picker.Item label="Olinda" value="olinda" />
-                            <Picker.Item label="Jaboatão dos Guararapes" value="jaboatao" />
+                            onValueChange={(itemValue, itemIndex) => this.setState({cidadeEscolhida: itemValue})}>
+                            {this.state.cidades.map( cidade => 
+                                <Picker.Item key={cidade.id} label={cidade.nome} value={cidade.id} />)}
                         </Picker>
                         </View>
                    
@@ -201,12 +202,11 @@ export default class NewUserPage extends React.Component {
                         <View style={styles.backIcon}><Icon name='account-multiple' size={26} color="#fff"/></View>
                         <View style={{borderWidth: 1, borderColor: '#999999'}}>
                         <Picker
-                            selectedValue={this.state.categoria}
+                            selectedValue={this.state.categoriaEscolhida}
                             style={{ height: 20, width: 130 }}
-                            onValueChange={(itemValue, itemIndex) => this.setState({categoria: itemValue})}>
-                            <Picker.Item label="Construção" value="contrucao" />
-                            <Picker.Item label="Dona de casa" value="dona_de_casa" />
-                            <Picker.Item label="Jardinagem" value="jardinagem" />
+                            onValueChange={(itemValue, itemIndex) => this.setState({categoriaEscolhida: itemValue})}>
+                            {this.state.categorias.map(categoria => 
+                                <Picker.Item key={categoria.id} label={categoria.nome} value={categoria.id} />)}
                         </Picker>
                         </View>
 
