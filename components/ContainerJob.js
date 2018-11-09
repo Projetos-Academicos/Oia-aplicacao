@@ -10,10 +10,10 @@ const ContainerJob = props => {
             data={vagas}
             renderItem={({ item }) => (
                 <JobList 
-                 listVagas={item}
+                 vaga={item}
                  navigateToContainer={onPressContainer} />
             )}
-            keyExtractor={item => item.title} />
+            keyExtractor={item => item.id} />
     );
 }
 

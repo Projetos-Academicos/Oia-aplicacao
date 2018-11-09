@@ -62,14 +62,14 @@ export default class NewUserPage extends React.Component {
                 ativo: true,
                 orcamento: valor,
                 prazo: prazo,
+                cidade: {
+                    id: cidadeEscolhida
+                },
                 categoria:{
                     id: categoriaEscolhida
                 },
                 usuarioVaga:{
                     id: 1 
-                },
-                cidade: {
-                    id: cidadeEscolhida
                 },
                 statusVaga: 'ABERTA'
                 }
@@ -95,7 +95,7 @@ export default class NewUserPage extends React.Component {
     }
 
     renderLists() {
-        axios.get('https://oia-api.herokuapp.com/admin/listar-profissao')
+        axios.get('https://oia-api.herokuapp.com/admin/listar-categorias')
             .then(response => {
                 const results = response.data;
                 this.setState({

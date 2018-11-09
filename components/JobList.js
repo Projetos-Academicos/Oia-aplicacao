@@ -3,26 +3,26 @@ import { View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 const JobList = props => {
-    const {listVagas, navigateToContainer} = props;
-    const {title, local, published, description, price } = listVagas;
+    const {vaga, navigateToContainer} = props;
+    const {titulo, cidade, descricao, prazo, orcamento } = vaga;
     return (
         <TouchableOpacity onPress={() => {
-            navigateToContainer({ listVagas });
+            navigateToContainer( vaga );
         }}> 
         <View style={styles.container}>
             <View style={styles.line}>
-            <Text style={[styles.content, styles.cell, styles.jobTitle]}>{ title }</Text> 
+            <Text style={[styles.content, styles.cell, styles.jobTitle]}>{ titulo }</Text> 
             <Icon name='menu' size={20} color='#808080'/>
             </View>
             <View style={styles.line}>
-                <Text style={[styles.cell, styles.content, styles.description]}>{ description }</Text>
+                <Text style={[styles.cell, styles.content, styles.description]}>{ descricao }</Text>
             </View>
             <View style={styles.line}>
-                <Text style={[styles.cell, styles.content]}>{ local }</Text>
+                <Text style={[styles.cell, styles.content]}>{ cidade.nome }</Text>
             </View>
             <View style={styles.line}>
-                <Text style={[styles.cell, styles.content, styles.price]}>{ price }</Text> 
-                <Text style={styles.data}>{ published}</Text>
+                <Text style={[styles.cell, styles.content, styles.price]}>{ orcamento }</Text> 
+                <Text style={styles.data}>{ prazo}</Text>
             </View>
         </View>
         </TouchableOpacity>
