@@ -11,8 +11,9 @@ import {
     Dimensions,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-import { LoginPage, HomePage, NewUserPage, JobDetail, ExitScreen, CreateJob } from "./pages";
+import { LoginPage, HomePage, NewUserPage, JobDetail, ExitScreen, CreateJob, PageDetailsCriada, HistoricoDetailPage } from "./pages";
 import HistoricoScreen from './pages/HistoricoScreen';
+import VagasCriadas from './pages/VagasCriadas';
 
 
 const AppStackNavigator = createStackNavigator({
@@ -59,7 +60,40 @@ const AppStackNavigator = createStackNavigator({
                 headerLeft: undefined // poe a seta de voltar 
             });
         }
+    },
+    'HistoricoDetailPage': {
+        screen: HistoricoDetailPage, // JobDetail
+        navigationOptions: ({ navigation }) => {
+            // const nameWork = navigation.state.params.listVagas.title;
+            return ({
+                title: 'Historico detalhes', //namework
+                headerTitleStyle: {
+                    color: '#fff',
+                    fontSize: 24,
+                    textAlign: 'center', // manda o elemente ir para o meio da barra 
+                    flexGrow: 1,
+                },
+                headerLeft: undefined // poe a seta de voltar 
+            });
+        }
+    },
+    'PageDetailsCriada': {
+        screen: PageDetailsCriada, // DetailsCriada
+        navigationOptions: ({ navigation }) => {
+            // const nameWork = navigation.state.params.listVagas.title;
+            return ({
+                title: 'Sua Vaga Criada', //namework
+                headerTitleStyle: {
+                    color: '#fff',
+                    fontSize: 24,
+                    textAlign: 'center', // manda o elemente ir para o meio da barra 
+                    flexGrow: 1,
+                },
+                headerLeft: undefined // poe a seta de voltar 
+            });
+        }
     }
+
 }, {
         navigationOptions: ({ navigation }) => ({
             title: 'OIA.COM',
@@ -142,6 +176,34 @@ const historicScreen = createStackNavigator({
     }  
 })
 
+const vagasCriada = createStackNavigator({
+    'VagasCriadas': {
+        screen: VagasCriadas, // VagasCriadas
+        navigationOptions: ({ navigation }) => ({
+            title: 'Vagas Criada',
+            headerLeft: (
+                <TouchableOpacity onPress={() => navigation.openDrawer()}>
+                    <View style={{ paddingHorizontal: 12 }}>
+                        <Icon color='#fff' name="home" size={28} />
+                    </View>
+                </TouchableOpacity>
+            ),
+            headerTintColor: '#fff',
+                headerStyle: {
+                    backgroundColor: '#6F2B8F',
+                    borderWidth: 1,
+                    borderBottomColor: '#85868B',
+                },
+                headerTitleStyle: {
+                    color: '#fff',
+                    fontSize: 28,
+                    textAlign: 'center',
+                    flexGrow: 1,
+                }
+        })
+    }  
+})
+
 class Exit extends React.Component {
     static navigationOptions = {
         drawerLabel: 'Sair',
@@ -199,7 +261,15 @@ export default createDrawerNavigator({
         screen: historicScreen,
         navigationOptions: {
             drawerIcon: ({ tintColor }) => (
-                <Icon color={tintColor} name='history' size={24} />
+                <Icon color={tintColor} name='folder-multiple-outline' size={24} />
+            )
+        }
+    },
+    'Vagas Criada': {
+        screen: vagasCriada,
+        navigationOptions: {
+            drawerIcon: ({ tintColor }) => (
+                <Icon color={tintColor} name='folder-move' size={24} />
             )
         }
     },
