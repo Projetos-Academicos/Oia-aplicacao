@@ -7,7 +7,7 @@ const JobList = props => {
     const {titulo, cidade, descricao, prazo, orcamento } = vaga;
     return (
         <TouchableOpacity onPress={() => {
-            navigateToContainer( vaga );
+            navigateToContainer({vaga});
         }}> 
         <View style={styles.container}>
             <View style={styles.line}>

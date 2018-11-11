@@ -1,11 +1,25 @@
 import React from "react";
 import { ScrollView, View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import axios from "axios";
 
 
 const ContainerDetails = props => {
   const { vaga } = props;
-  console.log(vaga);
+
+  function candidatarVaga() {
+    axios({
+        method: 'post',
+        url: 'https://oia-api.herokuapp.com/admin/candidatar-se/' + 2 + '/' + vaga.id})
+        .then(function (response) {
+          console.log('funcionou');
+            console.log(response.data);
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+  }
+
   return (
    <ScrollView> 
     <View style={styles.telaFundo}>
@@ -16,12 +30,12 @@ const ContainerDetails = props => {
         
 
         <Text style={[styles.cell, styles.rectangle]}><Icon name='map-marker' size={20} color='#E75A4D'/>{vaga.cidade.nome}</Text> 
-        <Text style={[styles.cell, styles.rectangle]}><Icon name='calendar-range' size={20} color='black'/>{vaga.prazo}}</Text>
+        <Text style={[styles.cell, styles.rectangle]}><Icon name='calendar-range' size={20} color='black'/>{vaga.prazo}</Text>
        
         <View style={styles.description}>
           <Text style={styles.descricao}>Descrição</Text>
           <View style={styles.marker}>
-            <Text style={styles.money}>{vaga.orcamento}}</Text>
+            <Text style={styles.money}>{vaga.orcamento}</Text>
             </View>
         </View>
 
@@ -30,7 +44,7 @@ const ContainerDetails = props => {
         </Text>
     
       </View>
-        <TouchableOpacity style={styles.button} onPress={() => { }}>
+        <TouchableOpacity style={styles.button} onPress={() => {candidatarVaga() }}>
           <Text style={{color: 'white', fontSize: 18, fontWeight: 'bold'}}> QUERO ESSA OIA </Text>
         </TouchableOpacity>
     </View>

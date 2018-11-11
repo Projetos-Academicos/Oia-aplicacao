@@ -40,13 +40,17 @@ export default class NewUserPage extends React.Component {
             cidades: []
         }
 
-        this.renderLists();
+       // this.renderLists();
     }
 
     changeTextInput(chave, valor) {
         this.setState({
             [chave]: valor
         });
+    }
+
+    componentDidMount() {
+        this.renderLists();
     }
 
     createJob () {

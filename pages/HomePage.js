@@ -10,8 +10,6 @@ export default class HomePage extends React.Component{
         this.state = {
             listVagas: []
         }
-
-        this.renderListVagas();
     }
 
     renderListVagas() {
@@ -22,6 +20,10 @@ export default class HomePage extends React.Component{
                     listVagas: results,
                 });
             });
+    }
+
+    componentDidMount() {
+        this.renderListVagas();
     }
 
     render (){
