@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity} from 'react-native';
-import FlatHistoric from '../components/FlatHistoric';
+import FlatVagaCriada from '../components/FlatVagaCriada';
 
-export default class HistoricoScreen extends React.Component{
+export default class VagasCriadas extends React.Component{
     state = {
         listVagas: [
             {
@@ -29,10 +29,10 @@ export default class HistoricoScreen extends React.Component{
     render (){
         return(
          <View style={styles.container}>
-            <FlatHistoric
+            <FlatVagaCriada
                 vagas={this.state.listVagas}
                 onPressContainer={pageParams => {
-                this.props.navigation.navigate('HistoricoDetailPage', pageParams);
+                this.props.navigation.navigate('PageDetailsCriada', pageParams);
                 }}/>
          </View>
         );
