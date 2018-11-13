@@ -26,7 +26,7 @@ const ContainerDetails = props => {
       <View style={styles.square}>
 
         
-        <Text style={[styles.cell, styles.rectangle, styles.title]}>{vaga.categoria.nome}        <Icon name='content-cut' size={24} color='#808080'/></Text>
+        <Text style={[styles.cell, styles.rectangle, styles.title]}>{vaga.titulo}        <Icon name='content-cut' size={24} color='#808080'/></Text>
         
 
         <Text style={[styles.cell, styles.rectangle]}><Icon name='map-marker' size={20} color='#E75A4D'/>{vaga.cidade.nome}</Text> 

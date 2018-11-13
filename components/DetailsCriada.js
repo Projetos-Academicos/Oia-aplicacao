@@ -4,33 +4,28 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 
 const DetailsCriada = props => {
+  const {vaga} = props; 
   return (
    <ScrollView> 
     <View style={styles.telaFundo}>
       <View style={styles.square}>
 
         
-        <Text style={[styles.cell, styles.rectangle, styles.title]}>Jardineiro Profissional        <Icon name='content-cut' size={24} color='#808080'/></Text>
+        <Text style={[styles.cell, styles.rectangle, styles.title]}>{vaga.titulo}<Icon name='content-cut' size={24} color='#808080'/></Text>
         
 
-        <Text style={[styles.cell, styles.rectangle]}><Icon name='map-marker' size={20} color='#E75A4D'/>Recife, Pernambuco</Text> 
-        <Text style={[styles.cell, styles.rectangle]}><Icon name='calendar-range' size={20} color='black'/>Prazo de 3 dias</Text>
+        <Text style={[styles.cell, styles.rectangle]}><Icon name='map-marker' size={20} color='#E75A4D'/>{vaga.cidade.nome}</Text> 
+        <Text style={[styles.cell, styles.rectangle]}><Icon name='calendar-range' size={20} color='black'/>{vaga.prazo}</Text>
        
         <View style={styles.description}>
           <Text style={styles.descricao}>Descrição</Text>
           <View style={styles.marker}>
-            <Text style={styles.money}>R$ 3.400,00</Text>
+            <Text style={styles.money}>R$ {vaga.orcamento}}</Text>
             </View>
         </View>
 
         <Text style={[styles.cell, styles.rectangle]}> 
-        Eu preciso preciso opreciso precio sdasiodas doaiso
-        dasdasid oasiodiaso dao sddasiodasid osia sodsiosda sdd
-        dasdasidoa siodiasodaos dasiodasidos iasodsio sdasdd
-        Eu preciso preciso opreciso precio sdasiodas doaiso
-        dasdasid oasiodiaso dao sddasiodasid osia sodsiosda sdd
-        dasdasidoa siodiasodaos dasiodasidos iasodsio sdasdd
-        iasodsio sdasdd
+          {vaga.descricao}
         </Text>
     
       </View>

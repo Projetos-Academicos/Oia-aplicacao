@@ -10,10 +10,10 @@ const FlatHistoric = props => {
             data={vagas}
             renderItem={({ item }) => (
                 <HistoricJob 
-                 listVagas={item}
+                 vaga={item}
                  navigateToContainer={onPressContainer} />
             )}
-            keyExtractor={item => item.title} />
+            keyExtractor={item => item.id} />
     );
 }
 
