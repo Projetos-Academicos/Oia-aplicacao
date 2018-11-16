@@ -1,59 +1,46 @@
 import React from "react";
 import { ScrollView, View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import axios from "axios";
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 
-const ContainerDetails = props => {
-  const { vaga } = props;
-
-  function candidatarVaga() {
-    axios({
-        method: 'post',
-        url: 'https://oia-api.herokuapp.com/admin/candidatar-se/' + 2 + '/' + vaga.id})
-        .then(function (response) {
-          console.log('funcionou');
-            console.log(response.data);
-        })
-        .catch(function (error) {
-            console.log(error);
-        })
-  }
-
+const HistoricoDetails = props => {
   return (
    <ScrollView> 
     <View style={styles.telaFundo}>
       <View style={styles.square}>
 
         
-        <Text style={[styles.cell, styles.rectangle, styles.title]}>{vaga.titulo}        <Icon name='content-cut' size={24} color='#808080'/></Text>
+        <Text style={[styles.cell, styles.rectangle, styles.title]}>Jardineiro Profissional        <Icon name='content-cut' size={24} color='#808080'/></Text>
         
 
-        <Text style={[styles.cell, styles.rectangle]}><Icon name='map-marker' size={20} color='#E75A4D'/>{vaga.cidade.nome}</Text> 
-        <Text style={[styles.cell, styles.rectangle]}><Icon name='calendar-range' size={20} color='black'/>{vaga.prazo}</Text>
+        <Text style={[styles.cell, styles.rectangle]}><Icon name='map-marker' size={20} color='#E75A4D'/>Recife, Pernambuco</Text> 
+        <Text style={[styles.cell, styles.rectangle]}><Icon name='calendar-range' size={20} color='black'/>Prazo de 3 dias</Text>
        
         <View style={styles.description}>
           <Text style={styles.descricao}>Descrição</Text>
           <View style={styles.marker}>
-            <Text style={styles.money}>{vaga.orcamento}</Text>
+            <Text style={styles.money}>R$ 3.400,00</Text>
             </View>
         </View>
 
-        <Text style={[styles.cell, styles.rectangle]}> 
-          {vaga.descricao}
+        <Text style={[styles.cell]}> 
+        Eu preciso preciso opreciso precio sdasiodas doaiso
+        dasdasid oasiodiaso dao sddasiodasid osia sodsiosda sdd
+        dasdasidoa siodiasodaos dasiodasidos iasodsio sdasdd
+        Eu preciso preciso opreciso precio sdasiodas doaiso
+        dasdasid oasiodiaso dao sddasiodasid osia sodsiosda sdd
+        dasdasidoa siodiasodaos dasiodasidos iasodsio sdasdd
+        iasodsio sdasdd
         </Text>
     
       </View>
-        <TouchableOpacity style={styles.button} onPress={() => {candidatarVaga() }}>
-          <Text style={{color: 'white', fontSize: 18, fontWeight: 'bold'}}> QUERO ESSA OIA </Text>
-        </TouchableOpacity>
     </View>
     </ScrollView>
     
   );
 }
 
-export default ContainerDetails;
+export default HistoricoDetails;
 
 
 const styles = StyleSheet.create({
