@@ -180,7 +180,7 @@ const vagasCriada = createStackNavigator({
     'VagasCriadas': {
         screen: VagasCriadas, // VagasCriadas
         navigationOptions: ({ navigation }) => ({
-            title: 'Vagas Criada',
+            title: 'Minhas Vagas',
             headerLeft: (
                 <TouchableOpacity onPress={() => navigation.openDrawer()}>
                     <View style={{ paddingHorizontal: 12 }}>
@@ -257,7 +257,7 @@ export default createDrawerNavigator({
             )
         }
     },
-    'Historico de Vagas': {
+    'Historico': {
         screen: historicScreen,
         navigationOptions: {
             drawerIcon: ({ tintColor }) => (
@@ -265,7 +265,7 @@ export default createDrawerNavigator({
             )
         }
     },
-    'Vagas Criada': {
+    'Minhas Vagas': {
         screen: vagasCriada,
         navigationOptions: {
             drawerIcon: ({ tintColor }) => (
