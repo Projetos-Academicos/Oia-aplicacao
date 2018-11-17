@@ -1,32 +1,17 @@
 import React from "react";
 import { ScrollView, View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import axios from "axios";
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 
-const ContainerDetails = props => {
-  const { vaga } = props;
-
-  function candidatarVaga() {
-    axios({
-        method: 'post',
-        url: 'https://oia-api.herokuapp.com/admin/candidatar-se/' + 2 + '/' + vaga.id})
-        .then(function (response) {
-          console.log('funcionou');
-            console.log(response.data);
-        })
-        .catch(function (error) {
-            console.log(error);
-        })
-  }
-
+const DetailsCriada = props => {
+  const {vaga} = props; 
   return (
    <ScrollView> 
     <View style={styles.telaFundo}>
       <View style={styles.square}>
 
         
-        <Text style={[styles.cell, styles.rectangle, styles.title]}>{vaga.titulo}        <Icon name='content-cut' size={24} color='#808080'/></Text>
+        <Text style={[styles.cell, styles.rectangle, styles.title]}>{vaga.titulo}<Icon name='content-cut' size={24} color='#808080'/></Text>
         
 
         <Text style={[styles.cell, styles.rectangle]}><Icon name='map-marker' size={20} color='#E75A4D'/>{vaga.cidade.nome}</Text> 
@@ -35,7 +20,7 @@ const ContainerDetails = props => {
         <View style={styles.description}>
           <Text style={styles.descricao}>Descrição</Text>
           <View style={styles.marker}>
-            <Text style={styles.money}>{vaga.orcamento}</Text>
+            <Text style={styles.money}>R$ {vaga.orcamento}}</Text>
             </View>
         </View>
 
@@ -44,16 +29,15 @@ const ContainerDetails = props => {
         </Text>
     
       </View>
-        <TouchableOpacity style={styles.button} onPress={() => {candidatarVaga() }}>
-          <Text style={{color: 'white', fontSize: 18, fontWeight: 'bold'}}> QUERO ESSA OIA </Text>
-        </TouchableOpacity>
+           <Text style={styles.descricao}> Candidatos para vaga </Text>
+           <Text> ajduadajd </Text>
     </View>
     </ScrollView>
     
   );
 }
 
-export default ContainerDetails;
+export default DetailsCriada;
 
 
 const styles = StyleSheet.create({

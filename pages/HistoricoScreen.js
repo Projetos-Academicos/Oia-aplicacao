@@ -13,7 +13,7 @@ export default class HistoricoScreen extends React.Component{
             <FlatHistoric
                 vagas={this.state.listVagas}
                 onPressContainer={pageParams => {
-                this.props.navigation.navigate('JobDetail', pageParams);
+                this.props.navigation.navigate('HistoricoDetailPage', pageParams);
                 }}/>
          </View>
         );

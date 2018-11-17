@@ -1,19 +1,15 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity} from 'react-native';
-import ContainerJob from '../components/ContainerJob';
+import FlatVagaCriada from '../components/FlatVagaCriada';
 import axios from 'axios';
 
-export default class HomePage extends React.Component{
-    constructor(props) {
-        super(props);
+export default class VagasCriadas extends React.Component{
+    state = {
+        listVagas: [],
+    };
 
-        this.state = {
-            listVagas: []
-        }
-    }
-
-    renderListVagas() {
-        axios.get('https://oia-api.herokuapp.com/admin/listar-vagas/2')
+    renderListVagasCriadas() {
+        axios.get('https://oia-api.herokuapp.com/admin/minhas-vagas/1')
             .then(response => {
                 const results = response.data;
                 this.setState({
@@ -23,16 +19,16 @@ export default class HomePage extends React.Component{
     }
 
     componentDidMount() {
-        this.renderListVagas();
+        this.renderListVagasCriadas();
     }
 
     render (){
         return(
          <View style={styles.container}>
-            <ContainerJob
+            <FlatVagaCriada
                 vagas={this.state.listVagas}
                 onPressContainer={pageParams => {
-                this.props.navigation.navigate('JobDetail', pageParams);
+                this.props.navigation.navigate('PageDetailsCriada', pageParams);
                 }}/>
          </View>
         );
@@ -44,7 +40,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
        // alignItems: 'center',
-        backgroundColor: '#fff',
+        backgroundColor: '#ddd',
         padding: 9 // altera o tamanhho do container das vagas
     }
 });
