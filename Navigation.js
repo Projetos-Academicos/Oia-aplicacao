@@ -11,9 +11,9 @@ import {
     Dimensions,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-import { LoginPage, HomePage, NewUserPage, JobDetail, ExitScreen, CreateJob, PageDetailsCriada, HistoricoDetailPage } from "./pages";
-import HistoricoScreen from './pages/HistoricoScreen';
-import VagasCriadas from './pages/VagasCriadas';
+import { LoginPage, HomePage, NewUserPage, JobDetail, ExitScreen, CreateJob, PageDetailsCandidatadas, PageHistoricoVagasCriada } from "./pages";
+import CriadasHistoricoScreen from './pages/CriadasHistoricoScreen';
+import OiaCandidatadas from './pages/OiaCandidatadas';
 
 
 const AppStackNavigator = createStackNavigator({
@@ -61,12 +61,12 @@ const AppStackNavigator = createStackNavigator({
             });
         }
     },
-    'HistoricoDetailPage': {
-        screen: HistoricoDetailPage, // JobDetail
+    'PageHistoricoVagasCriada': {
+        screen: PageHistoricoVagasCriada, // JobDetail
         navigationOptions: ({ navigation }) => {
             // const nameWork = navigation.state.params.listVagas.title;
             return ({
-                title: 'Historico detalhes', //namework
+                title: 'Detalhes da sua OIA', //namework
                 headerTitleStyle: {
                     color: '#fff',
                     fontSize: 24,
@@ -77,12 +77,12 @@ const AppStackNavigator = createStackNavigator({
             });
         }
     },
-    'PageDetailsCriada': {
-        screen: PageDetailsCriada, // DetailsCriada
+    'PageDetailsCandidatadas': {
+        screen: PageDetailsCandidatadas, // DetailsCriada
         navigationOptions: ({ navigation }) => {
             // const nameWork = navigation.state.params.listVagas.title;
             return ({
-                title: 'Sua Vaga Criada', //namework
+                title: 'Oia Candidatada', //namework
                 headerTitleStyle: {
                     color: '#fff',
                     fontSize: 24,
@@ -148,11 +148,11 @@ const createJob = createStackNavigator({
     }  
 })
 
-const historicScreen = createStackNavigator({
-    'HistoricoScreen': {
-        screen: HistoricoScreen, // HistoricoScreen
+const criadasHistoricoScreen = createStackNavigator({
+    'CriadasHistoricoScreen': {
+        screen: CriadasHistoricoScreen, // HistoricoScreen 
         navigationOptions: ({ navigation }) => ({
-            title: 'Historico de Vagas',
+            title: 'Suas Oia Criada',
             headerLeft: (
                 <TouchableOpacity onPress={() => navigation.openDrawer()}>
                     <View style={{ paddingHorizontal: 12 }}>
@@ -170,17 +170,17 @@ const historicScreen = createStackNavigator({
                     color: '#fff',
                     fontSize: 28,
                     textAlign: 'center',
-                    flexGrow: 1,
+                    
                 }
         })
     }  
 })
 
-const vagasCriada = createStackNavigator({
-    'VagasCriadas': {
-        screen: VagasCriadas, // VagasCriadas
+const oiaCandidatadas = createStackNavigator({
+    'OiaCandidatadas': {
+        screen: OiaCandidatadas, // OiaCandidatadas
         navigationOptions: ({ navigation }) => ({
-            title: 'Vagas Criada',
+            title: 'Oias Candidatas',
             headerLeft: (
                 <TouchableOpacity onPress={() => navigation.openDrawer()}>
                     <View style={{ paddingHorizontal: 12 }}>
@@ -257,16 +257,16 @@ export default createDrawerNavigator({
             )
         }
     },
-    'Historico de Vagas': {
-        screen: historicScreen,
+    'Oia Criada': {
+        screen: criadasHistoricoScreen,
         navigationOptions: {
             drawerIcon: ({ tintColor }) => (
                 <Icon color={tintColor} name='folder-multiple-outline' size={24} />
             )
         }
     },
-    'Vagas Criada': {
-        screen: vagasCriada,
+    'Oia Candidatada': {
+        screen: oiaCandidatadas,
         navigationOptions: {
             drawerIcon: ({ tintColor }) => (
                 <Icon color={tintColor} name='folder-move' size={24} />

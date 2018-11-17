@@ -2,7 +2,7 @@ import React from "react";
 import { ScrollView, View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
-const ContainerDetails = props => {
+const DetailsCandidatadas = props => {
   return (
     <ScrollView>
      <View style={styles.container}>
@@ -42,17 +42,12 @@ const ContainerDetails = props => {
           </View>
         </View>
 
-      <View style={styles.footer}>
-        <TouchableOpacity style={styles.button} onPress={() => { }}>
-          <Text style={{color: 'white', fontSize: 18, fontWeight: 'bold'}}> QUERO ESSA OIA </Text>
-        </TouchableOpacity>
-        </View>
      </View>
      </ScrollView>
   );
 }
 
-export default ContainerDetails;
+export default DetailsCandidatadas;
 
 const styles = StyleSheet.create({
  container: {

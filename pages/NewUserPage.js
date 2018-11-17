@@ -133,9 +133,7 @@ export default class NewUserPage extends React.Component {
                         <Text style={styles.labelSession}>Dados de login</Text>
 
                         <View style={styles.formContainer}>
-                            <View style={styles.backIcon}>
-                                <Icon name='email' color='#fff' size={26}/>
-                            </View>
+                                <Icon name='email' color='#999999' size={26}/>
                             <InputForm 
                                 placeholder='Email'
                                 value={this.state.email}
@@ -143,9 +141,7 @@ export default class NewUserPage extends React.Component {
                         </View>
                     
                         <View style={styles.formContainer}>
-                            <View style={styles.backIcon}>
-                                <Icon name='lock-open' color='#fff' size={26} />
-                            </View>
+                                <Icon name='lock-open' color='#999999' size={26} />
                             <InputForm 
                                 placeholder='Senha'
                                 secureTextEntry={true}
@@ -154,9 +150,7 @@ export default class NewUserPage extends React.Component {
                         </View>
 
                         <View style={styles.formContainer}>
-                            <View style={styles.backIcon}>
-                                <Icon name='lock' color='#fff' size={26} />  
-                            </View>
+                                <Icon name='lock' color='#999999' size={26} />  
                             <InputForm 
                                 placeholder='Confirme sua Senha'
                                 secureTextEntry={true}
@@ -171,9 +165,7 @@ export default class NewUserPage extends React.Component {
                          
                    
                         <View style={styles.formContainer}>
-                            <View style={styles.backIcon}>
-                                <Icon name='account' color='#fff' size={26} />
-                            </View>
+                                <Icon name='account' color='#999999' size={26} />
                             <InputForm 
                                 placeholder='Nome Completo'
                                 value={this.state.name}
@@ -181,9 +173,7 @@ export default class NewUserPage extends React.Component {
                         </View>
                    
                         <View style={styles.formContainer}>
-                            <View style={styles.backIcon}>
-                                <Icon name='map-marker' color='#fff' size={26} />
-                            </View>
+                                <Icon name='map-marker' color='#999999' size={26} />
                             <InputForm 
                                 placeholder='Cidade'
                                 value={this.state.lastName}
@@ -191,9 +181,7 @@ export default class NewUserPage extends React.Component {
                         </View>
                     
                         <View style={styles.formContainer}>
-                            <View style={styles.backIcon}>
-                                <Icon name='deskphone' color='#fff' size={26} />
-                            </View>
+                                <Icon name='deskphone' color='#999999' size={26} />
                             <InputForm 
                                 placeholder='Telefone'
                                 value={this.state.birthDate}
@@ -254,23 +242,23 @@ const styles = StyleSheet.create({
     },
     labelSession: {
         position: 'absolute',
-        fontSize: 11,
+        fontSize: 12,
         marginLeft: 5,
         paddingBottom: 10,
         color: '#727272'
     },
     formContainer: {
         flexDirection: 'row',
-        marginBottom: 16, // distancia entre os inputs
+        paddingBottom: 4,
+        paddingTop: 4,
+        marginBottom: 16, 
         borderWidth: 1,
         borderRadius: 3,
         borderColor: '#999999',
     },
-    backIcon: {
-        backgroundColor: '#e1e1e1'
-    },
     containerFooter: {
-        backgroundColor: '#fff'     
+        backgroundColor: '#fff',   
+        marginBottom: 50,
     },
     spaceButtom: {
         marginBottom: 50,

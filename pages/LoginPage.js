@@ -156,8 +156,9 @@ const styles = StyleSheet.create({
     },
     formContainer: {
         flexDirection: 'row',
-        paddingBottom: 2,
-        marginBottom: 10,
+        paddingBottom: 4,
+        paddingTop: 4,
+        marginBottom: 15,
         borderWidth: 1,
         borderRadius: 3,
         borderColor: '#999999'

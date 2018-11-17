@@ -131,9 +131,9 @@ export default class NewUserPage extends React.Component {
                         <Text style={styles.labelSession}>Dados da vaga</Text>
 
                         <View style={styles.formContainer}>
-                            <View style={styles.backIcon}>
-                                <Icon name='account-box' color='#fff' size={26}/>
-                            </View>
+                           
+                                <Icon name='account-box' color='#999999' size={26}/>
+   
                             <InputForm 
                                 placeholder='Titulo'
                                 value={this.state.email}
@@ -141,11 +141,10 @@ export default class NewUserPage extends React.Component {
                         </View>
                     
                         <View style={styles.formContainer}>
-                            <View style={styles.backIcon}>
-                                <Icon name='account-card-details' color='#fff' size={25} />
-                            </View>
+                  
+                                <Icon name='account-card-details' color='#999999' size={25} />
+                    
                             <InputForm
-                                style={{textAlignVertical: 'top'}}
                                 placeholder='Descrição'
                                 multiline={true}
                                 maxLength={300}
@@ -157,59 +156,56 @@ export default class NewUserPage extends React.Component {
 
 
                     <View style={styles.session}>
-                            <Text style={styles.labelSession}>Valores e Prazo</Text>
-                        <View style={styles.formTwoContainer}>
-                            <View style={styles.backIcon}><Icon name='cash-usd' color='#fff' size={26} /></View>
-                            
-                        <InputForm 
-                            placeholder='Valor'
-                            keyboardType='numeric'
-                            value={this.state.valor}
-                            onChangeText={value => { this.changeTextInput('valor', value)}} />
+                        <Text style={styles.labelSession}>Valores e Prazo</Text>
 
-                        <View style={{ paddingRight: 10, marginRight: 10}}></View>
-                        <View style={styles.backIcon}><Icon name='calendar-clock' size={28} color="#fff"/></View>
-                        
-                        
-                        <InputForm
+                            <View style={styles.formContainer}>
+                                <Icon name='cash-usd' color='#999999' size={26} />
+                                
+                                <InputForm 
+                                    placeholder='Valor'
+                                    keyboardType='numeric'
+                                    value={this.state.valor}
+                                    onChangeText={value => { this.changeTextInput('valor', value)}} />
+                            </View>
 
-                            placeholder='Prazo'
-                            keyboardType='numeric'
-                            value={this.state.prazo}
-                            onChangeText={value => { this.changeTextInput('prazo', value)}} />
-                        </View>
+                      
+                            <View style={styles.formContainer}>
+                                <Icon name='calendar-clock' size={28} color="#999999"/>
+                        
+                                <InputForm
+                                    placeholder='Prazo'
+                                    keyboardType='numeric'
+                                    value={this.state.prazo}
+                                    onChangeText={value => { this.changeTextInput('prazo', value)}} />
+                            </View>
                     </View>
 
                     <View style={styles.session}>
                         <Text style={styles.labelSession}>Informações Adicionais</Text>
-                        <View style={styles.formTwoContainer}>
-
-                        
-                        <View style={styles.backIcon}><Icon name='map-marker' size={26} color="#fff"/></View>
-                        <View style={{marginRight: 10, borderWidth: 1, borderColor: '#999999'}}>
-                        <Picker
-                            selectedValue={this.state.local}
-                            style={{ height: 20, width: 130 }}
-                            onValueChange={(itemValue, itemIndex) => this.setState({local: itemValue})}>
-                            <Picker.Item label="Recife" value="recife" />
-                            <Picker.Item label="Olinda" value="olinda" />
-                            <Picker.Item label="Jaboatão dos Guararapes" value="jaboatao" />
-                        </Picker>
+                        <View style={styles.formContainer}>
+                            <Icon name='map-marker' size={26} color="#999999"/>
+                            
+                            <Picker
+                                selectedValue={this.state.local}
+                                style={{ height: 18, width: 280 }}
+                                onValueChange={(itemValue, itemIndex) => this.setState({local: itemValue})}>
+                                <Picker.Item label="Recife" value="recife" />
+                                <Picker.Item label="Olinda" value="olinda" />
+                                <Picker.Item label="Jaboatão dos Guararapes" value="jaboatao" />
+                            </Picker>
                         </View>
-                   
+
+                        <View style={styles.formContainer}>
+                        <Icon name='account-multiple' size={26} color="#999999"/>
                         
-                        <View style={styles.backIcon}><Icon name='account-multiple' size={26} color="#fff"/></View>
-                        <View style={{borderWidth: 1, borderColor: '#999999'}}>
                         <Picker
                             selectedValue={this.state.categoria}
-                            style={{ height: 20, width: 130 }}
+                            style={{ height: 18, width: 280 }}
                             onValueChange={(itemValue, itemIndex) => this.setState({categoria: itemValue})}>
                             <Picker.Item label="Construção" value="contrucao" />
                             <Picker.Item label="Dona de casa" value="dona_de_casa" />
                             <Picker.Item label="Jardinagem" value="jardinagem" />
                         </Picker>
-                        </View>
-
                         </View>
                     </View>
 
@@ -266,28 +262,23 @@ const styles = StyleSheet.create({
     },
     labelSession: {
         position: 'absolute',
-        fontSize: 11,
+        fontSize: 13,
         marginLeft: 5,
         paddingBottom: 10,
         color: '#727272'
     },
     formContainer: {
         flexDirection: 'row',
+        paddingTop: 4,
+        paddingBottom: 4,
         marginBottom: 16, // distancia entre os inputs
         borderWidth: 1,
         borderRadius: 3,
         borderColor: '#999999',
     },
-    formTwoContainer: {
-        flexDirection: 'row',
-        marginBottom: 16,
-    },
     formRadius: {
         borderLeftWidth: 3,
         borderColor: '#fff'
-    },
-    backIcon: {
-        backgroundColor: '#e1e1e1'
     },
     containerFooter: {
         backgroundColor: '#fff'     

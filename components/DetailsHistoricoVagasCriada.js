@@ -1,8 +1,34 @@
 import React from "react";
 import { ScrollView, View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import FlatlistCandidato from "../components/FlatlistCadidato";
 
-const ContainerDetails = props => {
+const DetailsHistoricoVagasCriada = props => {
+  state = {
+    listCandidatos: [
+        {
+            id: 1,
+            name: 'Ricardo',
+          },
+          {
+            id: 2,
+            name: 'Jefferson',
+          },
+          {
+            id: 3,
+            name: 'Italo',
+          },
+          {
+            id: 4,
+            name: 'Professor OpenRedu',
+          },
+          {
+            id: 5,
+            name: 'Erick',
+          },
+    ],
+};
+
   return (
     <ScrollView>
      <View style={styles.container}>
@@ -33,7 +59,7 @@ const ContainerDetails = props => {
         </View>
 
         <View style={styles.textDescription}>
-          <Text style={styles.descricao}>is simply dummy text of the printing and typesetting industry</Text>
+          <Text style={styles.descricao}>is simply dummy text of the printiy</Text>
         </View>
 
         <View style={styles.valor}>
@@ -43,16 +69,18 @@ const ContainerDetails = props => {
         </View>
 
       <View style={styles.footer}>
-        <TouchableOpacity style={styles.button} onPress={() => { }}>
-          <Text style={{color: 'white', fontSize: 18, fontWeight: 'bold'}}> QUERO ESSA OIA </Text>
-        </TouchableOpacity>
-        </View>
+         <Text style={styles.titleLista}> LISTA DE CANDIDATOS A OIA</Text>
+         <FlatlistCandidato
+              candidatos={this.state.listCandidatos}
+              onPressContainer={pageParams => {
+              }}/>
+      </View>
      </View>
      </ScrollView>
   );
 }
 
-export default ContainerDetails;
+export default DetailsHistoricoVagasCriada;
 
 const styles = StyleSheet.create({
  container: {
@@ -64,7 +92,6 @@ const styles = StyleSheet.create({
    marginHorizontal: 5,
    paddingLeft: 5,
  },
-
 
  row: {
   flexDirection: "row",
@@ -143,15 +170,17 @@ const styles = StyleSheet.create({
  },
 
  footer: { 
-   flex: 1,
-   backgroundColor: "#fff"
+  marginTop: 15,
+  marginBottom: 15,
+  marginHorizontal: 5,
+  paddingLeft: 5,
  },
 
- button: {
-  margin: 5,
-  alignItems: 'center',
-  elevation: 3,
-  backgroundColor: '#22B34E',
-  padding: 15,
-},
+ titleLista: {
+  fontSize: 18,
+  borderBottomWidth: 1,
+  borderColor: "#DEDEDE",
+  fontWeight: "bold",
+  marginBottom: 15
+ },
 });
