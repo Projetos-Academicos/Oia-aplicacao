@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from "react-redux";
-import { StyleSheet, Text, View, Alert, ActivityIndicator, Button, TextInput, Linking } from 'react-native';
+import { StyleSheet, Text, View, Alert, ActivityIndicator, Button, TextInput, Linking, AsyncStorage } from 'react-native';
 
-import { messageErroCodeLogin } from "../utils";
 import { login } from "../actions";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import InputForm from '../components/InputForm';
+import axios from 'axios';
 import CustomButtom from '../components/CustomButtom'
 
 
@@ -32,22 +32,54 @@ export class LoginPage extends React.Component {
         });
     }
 
-    doLogin() {
+    doLogin = async () => {
         this.setState({ isLoading: true, message: "" });
         const { email, password } = this.state;
 
-        this.props.login({ email, password })
-            .then(user => {
-                if (user) {
-                    Alert.alert("Bem-Vindo!", "Login efetuado com sucesso!");
-                    this.props.navigation.replace("HomePage");
-                } else {
-                    this.setState({ isLoading: false, message: "" })
-                }
+        let details = {
+            'client' : 'mobile',
+            'username': email,
+            'password': password,
+            'grant_type' : 'password'
+        };
+
+        let formBody = [];
+        for (let property in details) {
+            let encodedKey = encodeURIComponent(property);
+            let encodedValue = encodeURIComponent(details[property]);
+            formBody.push(encodedKey + "=" + encodedValue);
+        }
+
+        formBody = formBody.join("&");
+        axios({      
+            method: 'post',
+            url: 'https://oia-api.herokuapp.com/oauth/token',
+            auth: {
+                'username' : 'mobile',
+                'password' : 'm0b1l3'
+            },
+            headers:{
+                'Authorization': 'Basic bW9iaWxlOm0wYjFsMw==',
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            data: formBody
+            }).then(function (response) {
+                const {access_token} = response.data;
+                await AsyncStorage.multiSet([
+                    ['@tokenApi', access_token]
+                ]);
             })
-            .catch(erro => {
-                this.setState({ isLoading: false, message: messageErroCodeLogin(erro.code) })
-            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
+    async componentDidMount(){
+        const token = await AsyncStorage.getItem('@tokenApi');
+
+        if(token){           
+            this.props.navigation.replace("HomePage");
+        }
     }
 
     renderButton() {
@@ -96,8 +128,7 @@ export class LoginPage extends React.Component {
                         <View style={styles.formContainer}>
                             <Icon name='lock-outline' size={27} color='#999999' />
                             <InputForm 
-                                placeholder='Senha'
-                                secureTextEntry
+                                placeholder='Senha'                             
                                 value={password}
                                 onChangeText={value => this.changeTextInput('password', value)} />
                         </View>

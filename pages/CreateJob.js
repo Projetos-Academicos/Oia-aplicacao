@@ -51,8 +51,11 @@ export default class NewUserPage extends React.Component {
 
     createJob () {
         const { titulo, descricao, valor, prazo, cidadeEscolhida, categoriaEscolhida } = this.state;
+        console.log("----");
         console.log(cidadeEscolhida);
+        console.log("");
         console.log(categoriaEscolhida);
+        console.log("----");
         axios({
             method: 'post',
             url: 'https://oia-api.herokuapp.com/admin/cadastro-vaga/',
@@ -197,7 +200,7 @@ export default class NewUserPage extends React.Component {
                                 <Picker.Item key={cidade.id} label={cidade.nome} value={cidade.id} />)}
                         </Picker>
                         </View>
-                   
+                                
                         
                         <View style={styles.backIcon}><Icon name='account-multiple' size={26} color="#fff"/></View>
                         <View style={{borderWidth: 1, borderColor: '#999999'}}>
