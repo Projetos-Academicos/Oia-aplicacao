@@ -13,7 +13,7 @@ const FlatHistoric = props => {
                  vaga={item}
                  navigateToContainer={onPressContainer} />
             )}
-            keyExtractor={item => item.id} />
+            keyExtractor={item => item.id.toString()} />
     );
 }
 

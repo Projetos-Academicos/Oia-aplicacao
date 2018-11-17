@@ -10,7 +10,8 @@ import {
     Picker,
     ScrollView,
     TouchableOpacity, 
-    ActivityIndicator } from 'react-native';
+    ActivityIndicator,
+    AsyncStorage} from 'react-native';
 //import { connect } from 'react-redux';
 import firebase from 'firebase';
 import { messageErroCodeNewUser } from "../utils";
@@ -37,7 +38,8 @@ export default class NewUserPage extends React.Component {
             categoriaEscolhida: 1,
             cidadeEscolhida: 1,
             categorias: [],
-            cidades: []
+            cidades: [],
+            token: ''
         }
 
        // this.renderLists();
@@ -49,12 +51,19 @@ export default class NewUserPage extends React.Component {
         });
     }
 
-    componentDidMount() {
-        this.renderLists();
-    }
+    async componentDidMount() {
+        const token = await AsyncStorage.getItem('@tokenApi');
+        this.setState({
+            token: token
+        });
+ 
+         if(token){           
+             this.renderLists(token);
+         }
+     }
 
     createJob () {
-        const { titulo, descricao, valor, prazo, cidadeEscolhida, categoriaEscolhida } = this.state;
+        const { titulo, descricao, valor, prazo, cidadeEscolhida, categoriaEscolhida, token} = this.state;
         console.log("----");
         console.log(cidadeEscolhida);
         console.log("");
@@ -63,6 +72,9 @@ export default class NewUserPage extends React.Component {
         axios({
             method: 'post',
             url: 'https://oia-api.herokuapp.com/admin/cadastro-vaga/',
+            headers:{
+                'Authorization': 'Bearer ' + token,
+            },
             data: {
                 titulo: titulo,
                 descricao: descricao,
@@ -82,6 +94,7 @@ export default class NewUserPage extends React.Component {
                 }
             })
             .then(function (response) {
+                console.log('funfou');
                 console.log(response.data);
             })
             .catch(function (error) {
@@ -101,22 +114,32 @@ export default class NewUserPage extends React.Component {
         );
     }
 
-    renderLists() {
-        axios.get('https://oia-api.herokuapp.com/admin/listar-categorias')
-            .then(response => {
-                const results = response.data;
-                this.setState({
-                    categorias: results,
-                });
+    renderLists(token) {
+        axios({
+            method: 'get',
+            url:'https://oia-api.herokuapp.com/admin/listar-categorias',
+            headers:{
+                'Authorization': 'Bearer ' + token,
+            },
+        }).then(response => {
+            const results = response.data;
+            this.setState({
+                categorias: results,
             });
-
-         axios.get('http://oia-api.herokuapp.com/admin/listar-cidades')
-            .then(response => {
-                const results = response.data;
-                this.setState({
-                   cidades: results
-                });
+        });
+        
+        axios({
+            method: 'get',
+            url: 'http://oia-api.herokuapp.com/admin/listar-cidades',
+            headers:{
+                'Authorization': 'Bearer ' + token,
+            },
+        }).then(response => {
+            const results = response.data;
+            this.setState({
+               cidades: results
             });
+        });
     }
 
     renderButton() {

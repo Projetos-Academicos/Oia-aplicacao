@@ -13,7 +13,7 @@ const FlatVagaCriada = props => {
                  vaga={item}
                  navigateToContainer={onPressContainer} />
             )}
-            keyExtractor={item => item.title} />
+            keyExtractor={item => item.id.toString()} />
     );
 }
 
