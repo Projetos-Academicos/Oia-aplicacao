@@ -35,6 +35,7 @@ export class LoginPage extends React.Component {
     doLogin = async () => {
         this.setState({ isLoading: true, message: "" });
         const { email, password } = this.state;
+        let logado = false;
 
         let details = {
             'client' : 'mobile',
@@ -65,21 +66,29 @@ export class LoginPage extends React.Component {
             data: formBody
             }).then(function (response) {
                 const {access_token} = response.data;
-                await AsyncStorage.multiSet([
+                console.log(access_token);
+                AsyncStorage.multiSet([
                     ['@tokenApi', access_token]
                 ]);
+                logado = true;
             })
             .catch(function (error) {
                 console.log(error);
             });
-    }
+
+            const token = await AsyncStorage.getItem('@tokenApi');
+            if(token){
+                 this.props.navigation.replace("HomePage");
+            }
+
+        }
 
     async componentDidMount(){
-        const token = await AsyncStorage.getItem('@tokenApi');
+        //const token = await AsyncStorage.getItem('@tokenApi');
 
-        if(token){           
-            this.props.navigation.replace("HomePage");
-        }
+        // if(token){           
+        //     this.props.navigation.replace("HomePage");
+        // }
     }
 
     renderButton() {

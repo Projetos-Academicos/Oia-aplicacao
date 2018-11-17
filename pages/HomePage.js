@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, AsyncStorage} from 'react-native';
 import ContainerJob from '../components/ContainerJob';
 import axios from 'axios';
 
@@ -11,9 +11,17 @@ export default class HomePage extends React.Component{
             listVagas: []
         }
     }
-
-    renderListVagas() {
-        axios.get('https://oia-api.herokuapp.com/admin/listar-vagas/2')
+    renderListVagas(token) {
+        console.log('-----------------------------------------');
+        console.log(token);
+        console.log('-----------------------------------------');
+        axios({
+            method: 'get',
+            url: 'https://oia-api.herokuapp.com/admin/listar-vagas/9',
+            headers:{
+                'Authorization': 'Bearer ' + token,
+            },
+        })
             .then(response => {
                 const results = response.data;
                 this.setState({
@@ -22,8 +30,12 @@ export default class HomePage extends React.Component{
             });
     }
 
-    componentDidMount() {
-        this.renderListVagas();
+    async componentDidMount() {
+       const token = await AsyncStorage.getItem('@tokenApi');
+
+        if(token){           
+            this.renderListVagas(token);
+        }
     }
 
     render (){
