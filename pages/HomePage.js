@@ -17,7 +17,7 @@ export default class HomePage extends React.Component{
         console.log('-----------------------------------------');
         axios({
             method: 'get',
-            url: 'https://oia-api.herokuapp.com/admin/listar-vagas/9',
+            url: 'https://oia-api.herokuapp.com/admin/listar-vagas/8',
             headers:{
                 'Authorization': 'Bearer ' + token,
             },

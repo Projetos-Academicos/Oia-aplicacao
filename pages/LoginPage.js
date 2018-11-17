@@ -35,7 +35,6 @@ export class LoginPage extends React.Component {
     doLogin = async () => {
         this.setState({ isLoading: true, message: "" });
         const { email, password } = this.state;
-        let logado = false;
 
         let details = {
             'client' : 'mobile',
@@ -70,7 +69,6 @@ export class LoginPage extends React.Component {
                 AsyncStorage.multiSet([
                     ['@tokenApi', access_token]
                 ]);
-                logado = true;
             })
             .catch(function (error) {
                 console.log(error);
