@@ -64,10 +64,10 @@ export class LoginPage extends React.Component {
             },
             data: formBody
             }).then(function (response) {
-                const {access_token} = response.data;
-                console.log(access_token);
+                const {access_token, id} = response.data;
                 AsyncStorage.multiSet([
-                    ['@tokenApi', access_token]
+                    ['@tokenApi', access_token],
+                    ['@userId', JSON.stringify(id)]
                 ]);
             })
             .catch(function (error) {

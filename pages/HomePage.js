@@ -11,18 +11,14 @@ export default class HomePage extends React.Component{
             listVagas: []
         }
     }
-    renderListVagas(token) {
-        console.log('-----------------------------------------');
-        console.log(token);
-        console.log('-----------------------------------------');
+    renderListVagas(token, id) {
         axios({
             method: 'get',
-            url: 'https://oia-api.herokuapp.com/admin/listar-vagas/8',
+            url: 'https://oia-api.herokuapp.com/admin/listar-vagas/' + id,
             headers:{
                 'Authorization': 'Bearer ' + token,
             },
-        })
-            .then(response => {
+        }).then(response => {
                 const results = response.data;
                 this.setState({
                     listVagas: results,
@@ -32,9 +28,10 @@ export default class HomePage extends React.Component{
 
     async componentDidMount() {
        const token = await AsyncStorage.getItem('@tokenApi');
-
+       const id = JSON.parse(await AsyncStorage.getItem('@userId'));
+       
         if(token){           
-            this.renderListVagas(token);
+            this.renderListVagas(token, id);
         }
     }
 
