@@ -10,7 +10,6 @@ import {
     ScrollView,
     TouchableOpacity, 
     ActivityIndicator } from 'react-native';
-//import { connect } from 'react-redux';
 import firebase from 'firebase';
 import { messageErroCodeNewUser } from "../utils";
 
@@ -18,8 +17,6 @@ import { FormRow } from '../components';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import InputForm from '../components/InputForm';
 import CustomButtom from '../components/CustomButtom';
-
-//import { tryRegister, tryInsert } from "../actions";
 
 export default class NewUserPage extends React.Component {
     constructor(props) {
@@ -36,36 +33,6 @@ export default class NewUserPage extends React.Component {
             lastName: ""
         }
 
-    }
-
-    tryRegister({ email, password }) {
-        return firebase
-            .auth()
-            .createUserWithEmailAndPassword(email, password)
-            .catch((error) => {
-                this.setState({ message: messageErroCodeNewUser(error.code) })
-            });
-    }
-
-    tryInsert({ email, name, lastName, birthDate }) {
-
-        firebase.auth().signOut();
-
-        firebase.auth().onAuthStateChanged((user) => {
-            if (user) {
-                firebase.database().ref('user').child(user.uid).set({
-                    name: name,
-                    last_name: lastName,
-                    birth_date: birthDate,
-                    email: email
-                })
-                .catch((error) => {
-                    this.setState({ message: messageErroCodeNewUser(error.code) })
-                });
-                Alert.alert("Bem-Vindo " + user.name + "!", "Registro efetuado com sucesso!");
-                this.props.navigation.replace("HomePage");
-            }
-        })
     }
 
     changeTextInput(chave, valor) {
