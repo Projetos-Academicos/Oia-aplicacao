@@ -35,9 +35,8 @@ export default class NewUserPage extends React.Component {
             descricao: "",
             valor: 0,
             prazo: 0,
-            id: 0,
-            categoriaEscolhida: 1,
-            cidadeEscolhida: 1,
+            categoriaEscolhida: 0,
+            cidadeEscolhida: 0,
             categorias: [],
             cidades: [],
             token: ''
@@ -54,10 +53,8 @@ export default class NewUserPage extends React.Component {
 
     async componentDidMount() {
         const token = await AsyncStorage.getItem('@tokenApi');
-        const id = JSON.parse(await AsyncStorage.getItem('@userId'));
         this.setState({
-            token: token,
-            id: id
+            token: token
         });
  
          if(token){           
@@ -65,13 +62,25 @@ export default class NewUserPage extends React.Component {
          }
      }
 
-    createJob () {
-        const { titulo, descricao, valor, prazo, cidadeEscolhida, categoriaEscolhida, token, id} = this.state;
+    createJob(token) {
+        const { titulo, descricao, valor, prazo, cidadeEscolhida, categoriaEscolhida} = this.state;
         console.log("----");
         console.log(cidadeEscolhida);
         console.log("");
         console.log(categoriaEscolhida);
         console.log("----");
+        console.log("");
+        console.log(titulo);
+        console.log("----");
+        console.log("");
+        console.log(descricao);
+        console.log("----");
+        console.log("");
+        console.log(valor);
+        console.log("----");
+        console.log("");
+        console.log(prazo);
+        console.log("----")
         axios({
             method: 'post',
             url: 'https://oia-api.herokuapp.com/admin/cadastro-vaga/',
@@ -141,11 +150,12 @@ export default class NewUserPage extends React.Component {
     }
 
     renderButton() {
+        const {token} = this.state;
         if (this.state.isLoading) {
             return <ActivityIndicator />;
         }
         return (
-            <CustomButtom style={styles.button} onPress={() => this.createJob()} text='Cadastrar' />
+            <CustomButtom style={styles.button} onPress={() => this.createJob(token)} text='Cadastrar' />
         );
     }
 
