@@ -1,26 +1,42 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, AsyncStorage} from 'react-native';
 import FlatVagaCriada from '../components/FlatVagaCriada';
 import axios from 'axios';
 
 export default class VagasCriadas extends React.Component{
-    state = {
-        listVagas: [],
-    };
+    constructor(props) {
+        super(props);
 
-    renderListVagasCriadas() {
-        axios.get('https://oia-api.herokuapp.com/admin/minhas-vagas/1')
-            .then(response => {
+        this.state = {
+            listVagas: []
+        }
+    }
+
+    renderListVagasCriadas(token, id) {
+        axios({
+            method: 'get',
+            url: 'https://oia-api.herokuapp.com/admin/minhas-vagas/' + id,
+            headers:{
+                'Authorization': 'Bearer ' + token
+            },
+        }).then(response => {
                 const results = response.data;
                 this.setState({
                     listVagas: results,
                 });
+            }).catch(error => {
+                console.log(error.code);
             });
     }
 
-    componentDidMount() {
-        this.renderListVagasCriadas();
-    }
+    async componentDidMount() {
+        const token = await AsyncStorage.getItem('@tokenApi');
+        const id = JSON.parse(await AsyncStorage.getItem('@userId'));
+        
+         if(token){           
+             this.renderListVagasCriadas(token, id);
+         }
+     }
 
     render (){
         return(

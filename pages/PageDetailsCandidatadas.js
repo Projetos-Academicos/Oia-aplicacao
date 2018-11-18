@@ -1,17 +1,18 @@
 import React from "react";
 import { View, StyleSheet} from 'react-native';
-import ContainerDetails from '../components/ContainerDetails';
+import DetailsCandidatadas from "../components/DetailsCandidatadas";
 
-export default class JobDetail extends React.Component {
+export default class PageDetailsCandidatadas extends React.Component {
   render() {
-    const { vaga } = this.props.navigation.state.params;
+    // const { job } = this.props.navigation.state.params;
     return (
       <View style={styles.container}>
-        <ContainerDetails vaga={vaga}/>
+        <DetailsCandidatadas />
       </View>
     );
   }
 }
+
 const styles = StyleSheet.create({
   container: {
       flex: 1,

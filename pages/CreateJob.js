@@ -35,6 +35,7 @@ export default class NewUserPage extends React.Component {
             descricao: "",
             valor: 0,
             prazo: 0,
+            id: 0,
             categoriaEscolhida: 1,
             cidadeEscolhida: 1,
             categorias: [],
@@ -53,8 +54,10 @@ export default class NewUserPage extends React.Component {
 
     async componentDidMount() {
         const token = await AsyncStorage.getItem('@tokenApi');
+        const id = JSON.parse(await AsyncStorage.getItem('@userId'));
         this.setState({
-            token: token
+            token: token,
+            id: id
         });
  
          if(token){           
@@ -63,7 +66,7 @@ export default class NewUserPage extends React.Component {
      }
 
     createJob () {
-        const { titulo, descricao, valor, prazo, cidadeEscolhida, categoriaEscolhida, token} = this.state;
+        const { titulo, descricao, valor, prazo, cidadeEscolhida, categoriaEscolhida, token, id} = this.state;
         console.log("----");
         console.log(cidadeEscolhida);
         console.log("");
@@ -78,7 +81,6 @@ export default class NewUserPage extends React.Component {
             data: {
                 titulo: titulo,
                 descricao: descricao,
-                ativo: true,
                 orcamento: valor,
                 prazo: prazo,
                 cidade: {
@@ -86,13 +88,9 @@ export default class NewUserPage extends React.Component {
                 },
                 categoria:{
                     id: categoriaEscolhida
-                },
-                usuarioVaga:{
-                    id: 1 
-                },
-                statusVaga: 'ABERTA'
                 }
-            })
+            }
+        })
             .then(function (response) {
                 console.log('funfou');
                 console.log(response.data);
@@ -163,9 +161,9 @@ export default class NewUserPage extends React.Component {
                         <Text style={styles.labelSession}>Dados da vaga</Text>
 
                         <View style={styles.formContainer}>
-                            <View style={styles.backIcon}>
-                                <Icon name='account-box' color='#fff' size={26}/>
-                            </View>
+                           
+                                <Icon name='account-box' color='#999999' size={26}/>
+   
                             <InputForm 
                                 placeholder='Titulo'
                                 value={this.state.titulo}
@@ -173,11 +171,10 @@ export default class NewUserPage extends React.Component {
                         </View>
                     
                         <View style={styles.formContainer}>
-                            <View style={styles.backIcon}>
-                                <Icon name='account-card-details' color='#fff' size={25} />
-                            </View>
+                  
+                                <Icon name='account-card-details' color='#999999' size={25} />
+                    
                             <InputForm
-                                style={{textAlignVertical: 'top'}}
                                 placeholder='Descrição'
                                 multiline={true}
                                 maxLength={300}
@@ -189,57 +186,54 @@ export default class NewUserPage extends React.Component {
 
 
                     <View style={styles.session}>
-                            <Text style={styles.labelSession}>Valores e Prazo</Text>
-                        <View style={styles.formTwoContainer}>
-                            <View style={styles.backIcon}><Icon name='cash-usd' color='#fff' size={26} /></View>
-                            
-                        <InputForm 
-                            placeholder='Valor'
-                            keyboardType='numeric'
-                            value={this.state.valor}
-                            onChangeText={value => { this.changeTextInput('valor', value)}} />
+                        <Text style={styles.labelSession}>Valores e Prazo</Text>
 
-                        <View style={{ paddingRight: 10, marginRight: 10}}></View>
-                        <View style={styles.backIcon}><Icon name='calendar-clock' size={28} color="#fff"/></View>
-                        
-                        
-                        <InputForm
+                            <View style={styles.formContainer}>
+                                <Icon name='cash-usd' color='#999999' size={26} />
+                                
+                                <InputForm 
+                                    placeholder='Valor'
+                                    keyboardType='numeric'
+                                    value={this.state.valor}
+                                    onChangeText={value => { this.changeTextInput('valor', value)}} />
+                            </View>
 
-                            placeholder='Prazo'
-                            keyboardType='numeric'
-                            value={this.state.prazo}
-                            onChangeText={value => { this.changeTextInput('prazo', value)}} />
-                        </View>
+                      
+                            <View style={styles.formContainer}>
+                                <Icon name='calendar-clock' size={28} color="#999999"/>
+                        
+                                <InputForm
+                                    placeholder='Prazo'
+                                    keyboardType='numeric'
+                                    value={this.state.prazo}
+                                    onChangeText={value => { this.changeTextInput('prazo', value)}} />
+                            </View>
                     </View>
 
                     <View style={styles.session}>
                         <Text style={styles.labelSession}>Informações Adicionais</Text>
-                        <View style={styles.formTwoContainer}>
-
-                        
-                        <View style={styles.backIcon}><Icon name='map-marker' size={26} color="#fff"/></View>
-                        <View style={{marginRight: 10, borderWidth: 1, borderColor: '#999999'}}>
+                        <View style={styles.formContainer}>
+                            <Icon name='map-marker' size={26} color="#999999"/>
+                            
                         <Picker
                             selectedValue={this.state.cidadeEscolhida}
-                            style={{ height: 20, width: 130 }}
+                            style={{ height: 18, width: 280 }}
                             onValueChange={(itemValue, itemIndex) => this.setState({cidadeEscolhida: itemValue})}>
                             {this.state.cidades.map( cidade => 
                                 <Picker.Item key={cidade.id} label={cidade.nome} value={cidade.id} />)}
                         </Picker>
                         </View>
-                                
+
+                        <View style={styles.formContainer}>
+                        <Icon name='account-multiple' size={26} color="#999999"/>
                         
-                        <View style={styles.backIcon}><Icon name='account-multiple' size={26} color="#fff"/></View>
-                        <View style={{borderWidth: 1, borderColor: '#999999'}}>
                         <Picker
-                            selectedValue={this.state.categoriaEscolhida}
-                            style={{ height: 20, width: 130 }}
+                            selectedValue={this.state.categoria}
+                            style={{ height: 18, width: 280 }}
                             onValueChange={(itemValue, itemIndex) => this.setState({categoriaEscolhida: itemValue})}>
                             {this.state.categorias.map(categoria => 
                                 <Picker.Item key={categoria.id} label={categoria.nome} value={categoria.id} />)}
                         </Picker>
-                        </View>
-
                         </View>
                     </View>
 
@@ -296,28 +290,23 @@ const styles = StyleSheet.create({
     },
     labelSession: {
         position: 'absolute',
-        fontSize: 11,
+        fontSize: 13,
         marginLeft: 5,
         paddingBottom: 10,
         color: '#727272'
     },
     formContainer: {
         flexDirection: 'row',
+        paddingTop: 4,
+        paddingBottom: 4,
         marginBottom: 16, // distancia entre os inputs
         borderWidth: 1,
         borderRadius: 3,
         borderColor: '#999999',
     },
-    formTwoContainer: {
-        flexDirection: 'row',
-        marginBottom: 16,
-    },
     formRadius: {
         borderLeftWidth: 3,
         borderColor: '#fff'
-    },
-    backIcon: {
-        backgroundColor: '#e1e1e1'
     },
     containerFooter: {
         backgroundColor: '#fff'     
