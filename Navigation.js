@@ -9,6 +9,7 @@ import {
     Image,
     SafeAreaView,
     Dimensions,
+    Alert
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { LoginPage, HomePage, NewUserPage, JobDetail, ExitScreen, CreateJob, PageDetailsCandidatadas, PageHistoricoVagasCriada } from "./pages";

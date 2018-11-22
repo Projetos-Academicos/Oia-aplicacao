@@ -78,7 +78,7 @@ export class LoginPage extends React.Component {
                 console.log(error);
             });
 
-            const token = await AsyncStorage.getItem('@tokenApi');
+            const token = AsyncStorage.getItem('@tokenApi');
             if(token){
                  this.props.navigation.replace("HomePage");
             }

@@ -4,9 +4,10 @@ import DetailsHistoricoVagasCriada from "../components/DetailsHistoricoVagasCria
 
 export default class PageHistoricoVagasCriada extends React.Component {
   render() {
+    const { vaga } = this.props.navigation.state.params;
     return (
       <View style={styles.container}>
-         <DetailsHistoricoVagasCriada />
+         <DetailsHistoricoVagasCriada vaga={vaga}/>
       </View>
     );
   }

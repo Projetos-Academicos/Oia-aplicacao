@@ -21,6 +21,12 @@ const ContainerDetails = props => {
     //     console.log(error);
     //   })
   }
+  
+   numberToReal(numero);{
+    var numero = numero.toFixed(2).split('.');
+    numero[0] = "R$ " + numero[0].split(/(?=(?:...)*$)/).join('.');
+    return numero.join(',');
+  }
 
   return (
     <ScrollView>
@@ -56,12 +62,12 @@ const ContainerDetails = props => {
 
         <View style={styles.valor}>
           <View style={styles.divValor}>
-            <Text style={styles.textValor}>{vaga.orcamento}</Text>
+            <Text style={styles.textValor}>{this.numberToReal(vaga.orcamento)}</Text>
           </View>
         </View>
 
         <View style={styles.footer}>
-          <TouchableOpacity style={styles.button} onPress={() => { Alert.alert("Em breve!") }}>
+          <TouchableOpacity style={styles.button} onPress={() => { Alert.alert("Oia!", "Esta funcionalidade ainda não está disponível!") }}>
             <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}> QUERO ESSA OIA </Text>
           </TouchableOpacity>
         </View>

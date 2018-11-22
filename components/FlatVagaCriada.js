@@ -10,10 +10,10 @@ const FlatVagaCriada = props => {
             data={vagas}
             renderItem={({ item }) => (
                 <VagaCriadaContainer 
-                 vaga={item}
+                 listVagas={item}
                  navigateToContainer={onPressContainer} />
             )}
-            keyExtractor={item => item.id.toString()} />
+            keyExtractor={item => item.title} />
     );
 }
 

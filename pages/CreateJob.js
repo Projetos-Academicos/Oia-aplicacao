@@ -101,8 +101,7 @@ export default class NewUserPage extends React.Component {
             }
         })
             .then(function (response) {
-                console.log('funfou');
-                console.log(response.data);
+                Alert.alert("Oia!", "Vaga criada com sucesso!");
             })
             .catch(function (error) {
                 console.log(error);

@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import FlatlistCandidato from "../components/FlatlistCadidato";
 
 const DetailsHistoricoVagasCriada = props => {
+  const { vaga } = props;
   state = {
     listCandidatos: [
         {
@@ -34,37 +35,34 @@ const DetailsHistoricoVagasCriada = props => {
      <View style={styles.container}>
         <View style={styles.dadosTopo}>
           <View style={[styles.row, styles.separete]}>
-            <Text style={[styles.dados, styles.text, styles.title]}>Jardineiro Profissional</Text>
+            <Text style={[styles.dados, styles.text, styles.title]}>{vaga.titulo}</Text>
             <Icon name="content-cut" size={24} color='#808080' />
           </View>
 
           <View style={styles.row}>
             <Icon name='map-marker' size={22} color='#E75A4D'/>
-            <Text style={[styles.dados, styles.text]}>Recife, Pernambuco</Text>
+            <Text style={[styles.dados, styles.text]}>{vaga.cidade.nome}</Text>
           </View>
 
           <View style={styles.row}>
             <Icon name='calendar-range' size={22} color='black'/>
-            <Text style={styles.text}>Prazo 3 dias</Text>
+            <Text style={styles.text}>{vaga.prazo}{vaga.prazo > 1 ? ' dias' : ' dia'}</Text>
           </View>
         </View>
 
         <View style={styles.description}>
           <View style={[styles.row, styles.separete]}>
             <Text style={styles.descriptionTitle}>Descrição</Text>
-            <View style={styles.prazo}>
-              <Text style={styles.time}>3 dias</Text>
-            </View>
           </View>
         </View>
 
         <View style={styles.textDescription}>
-          <Text style={styles.descricao}>is simply dummy text of the printiy</Text>
+          <Text style={styles.descricao}>{vaga.descricao}</Text>
         </View>
 
         <View style={styles.valor}>
           <View style={styles.divValor}>
-            <Text style={styles.textValor}>R$ 45,00</Text>
+            <Text style={styles.textValor}>{vaga.orcamento + ' reais'}</Text>
           </View>
         </View>
 

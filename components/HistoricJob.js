@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 const Historicjob = props => {
     const {vaga, navigateToContainer} = props;
+   const {titulo, cidade, descricao, prazo, orcamento } = vaga;
     
     return (
         <TouchableOpacity onPress={() => {
@@ -11,17 +12,17 @@ const Historicjob = props => {
         }}> 
         <View style={styles.container}>
             <View style={styles.line}>
-            <Text style={[styles.content, styles.cell, styles.jobTitle]}>{ vaga.titulo }</Text> 
+            <Text style={[styles.content, styles.cell, styles.jobTitle]}>{ titulo }</Text> 
             <Icon name='menu' size={20} color='#808080'/>
             </View>
             <View style={styles.line}>
-                <Text style={[styles.cell, styles.content, styles.description]}>{ vaga.descricao }</Text>
+                <Text style={[styles.cell, styles.content, styles.description]}>{ descricao }</Text>
             </View>
             <View style={styles.line}>
-                <Text style={[styles.cell, styles.content]}>{ vaga.cidade }</Text>
+                <Text style={[styles.cell, styles.content]}>{ cidade.nome }</Text>
             </View>
             <View style={styles.line}>
-                <Text style={[styles.cell, styles.content, styles.price]}>{ vaga.orcamento }</Text> 
+                <Text style={[styles.cell, styles.content, styles.price]}>{ orcamento }</Text> 
                 <Text style={styles.data}>{ vaga.prazo}</Text>
             </View>
         </View>

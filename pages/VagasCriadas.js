@@ -1,42 +1,30 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, AsyncStorage} from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import FlatVagaCriada from '../components/FlatVagaCriada';
-import axios from 'axios';
 
 export default class VagasCriadas extends React.Component{
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            listVagas: []
-        }
-    }
-
-    renderListVagasCriadas(token, id) {
-        axios({
-            method: 'get',
-            url: 'https://oia-api.herokuapp.com/admin/minhas-vagas/' + id,
-            headers:{
-                'Authorization': 'Bearer ' + token
-            },
-        }).then(response => {
-                const results = response.data;
-                this.setState({
-                    listVagas: results,
-                });
-            }).catch(error => {
-                console.log(error.code);
-            });
-    }
-
-    async componentDidMount() {
-        const token = await AsyncStorage.getItem('@tokenApi');
-        const id = JSON.parse(await AsyncStorage.getItem('@userId'));
-        
-         if(token){           
-             this.renderListVagasCriadas(token, id);
-         }
-     }
+    state = {
+        listVagas: [
+            {
+                id: 1,
+                thumbnail: 'https://avatars0.githubusercontent.com/u/28929274?s=200&v=4',
+                title: 'Jardineiro Profissional',
+                local: 'Recife, PE',
+                price: 'R$ 150,00',
+                description: 'Necessita de jardineiro para limpar daninhas em lotes de 50km...',
+                published: '50 min ago ·'
+              },
+              {
+                id: 2,
+                thumbnail: 'https://avatars0.githubusercontent.com/u/28929274?s=200&v=4',
+                title: 'Programador PHP Jedai',
+                local: 'Osasco, SP',
+                price: 'R$ 4115,00',
+                description: 'Programador fullstak, desenvolver codigos nativos para naves espaciais...',
+                published: '13 min ago ·'
+              },
+        ],
+    };
 
     render (){
         return(
