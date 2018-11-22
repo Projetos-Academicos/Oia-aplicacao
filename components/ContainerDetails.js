@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollView, View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { ScrollView, View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import axios from "axios";
 
@@ -7,17 +7,19 @@ const ContainerDetails = props => {
   const { vaga } = props;
 
   function candidatarVaga() {
-    axios({
-      method: 'post',
-      url: 'https://oia-api.herokuapp.com/admin/candidatar-se/' + 2 + '/' + vaga.id
-    })
-      .then(function (response) {
-        console.log('funcionou');
-        console.log(response.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      })
+
+    ;
+    // axios({
+    //   method: 'post',
+    //   url: 'https://oia-api.herokuapp.com/admin/candidatar-se/' + 2 + '/' + vaga.id
+    // })
+    //   .then(function (response) {
+    //     console.log('funcionou');
+    //     console.log(response.data);
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   })
   }
 
   return (
@@ -59,7 +61,7 @@ const ContainerDetails = props => {
         </View>
 
         <View style={styles.footer}>
-          <TouchableOpacity style={styles.button} onPress={() => { this.candidatarVaga() }}>
+          <TouchableOpacity style={styles.button} onPress={() => { Alert.alert("Em breve!") }}>
             <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}> QUERO ESSA OIA </Text>
           </TouchableOpacity>
         </View>

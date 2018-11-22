@@ -238,7 +238,7 @@ export default class NewUserPage extends React.Component {
                         <Icon name='account-multiple' size={26} color="#999999"/>
                         
                         <Picker
-                            selectedValue={this.state.categoria}
+                            selectedValue={this.state.categoriaEscolhida}
                             style={{ height: 18, width: 280 }}
                             onValueChange={(itemValue, itemIndex) => this.setState({categoriaEscolhida: itemValue})}>
                             {this.state.categorias.map(categoria => 

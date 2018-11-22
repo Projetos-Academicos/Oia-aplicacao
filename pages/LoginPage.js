@@ -65,6 +65,10 @@ export class LoginPage extends React.Component {
             data: formBody
             }).then(function (response) {
                 const {access_token, id} = response.data;
+                AsyncStorage.multiRemove([
+                    ['@tokenApi'],
+                    ['@userId']
+                ]);
                 AsyncStorage.multiSet([
                     ['@tokenApi', access_token],
                     ['@userId', JSON.stringify(id)]
